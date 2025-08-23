@@ -1,0 +1,69 @@
+/* Estilo geral do carrossel */
+.carousel {
+  max-width: 1100px;
+  margin: 40px auto;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Imagens com altura reduzida e corte proporcional */
+.carousel-inner img {
+  height: 420px;
+  object-fit: cover;
+}
+
+/* Legenda ajustada */
+.carousel-caption {
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  text-align: center;
+  max-width: 500px;
+  margin: 0 auto;
+  bottom: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+
+/* Texto da legenda */
+.carousel-caption h5,
+.carousel-caption p {
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+/* Indicadores do carrossel (os pontinhos) mais abaixo */
+.carousel-indicators {
+  bottom: 10px;
+}
+
+
+.carousel-caption {
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  text-align: center;
+  max-width: 500px;
+  left: 50% !important;
+  bottom: 15% !important;
+  transform: translateX(-50%);
+  position: absolute !important;
+}
+
+
+/* Redimensiona o carrossel */
+#carouselExampleCaptions {
+  max-width: 1000px;
+  margin: 2rem auto;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Define a altura desejada para o carrossel */
+#carouselExampleCaptions .carousel-item img {
+  height: 500px; /* Ajuste aqui a altura que você preferir */
+  object-fit: cover;
+}

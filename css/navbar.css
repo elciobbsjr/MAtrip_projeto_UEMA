@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css?family=Work+Sans:400,600');
+
+body {
+  margin: 0;
+  background: #111; /* fundo mais escuro para contrastar com a logo */
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 800;
+  color: white;
+}
+
+.container {
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+header {
+  background: #000; /* fundo neutro escuro */
+  padding: 10px 0;
+}
+
+.logo img {
+  height: 60px;
+  vertical-align: middle;
+}
+
+/* Menu */
+nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  gap: 40px;
+}
+
+nav li {
+  position: relative;
+}
+
+nav a {
+  color: #00bfa6; /* Turquesa da logo */
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+nav a:hover {
+  color: #f4c20d; /* Amarelo da logo */
+}
+
+/* Linha animada no hover */
+nav a::before {
+  content: '';
+  display: block;
+  height: 3px;
+  background-color: #f4c20d; /* Amarelo da logo */
+  position: absolute;
+  top: 0;
+  width: 0%;
+  transition: all ease-in-out 250ms;
+}
+
+nav a:hover::before {
+  width: 100%;
+}
+
+
+/* Estilo para o botão de login */
+.login-button {
+  background-color: #f4c20d; /* amarelo da logo */
+  color: #111; /* texto escuro para contraste */
+  padding: 8px 16px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  font-weight: 700;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.login-button:hover {
+  background-color: #00bfa6; /* turquesa da logo */
+  color: #000; /* escurece levemente ao hover */
+}
+
+/* Remove a linha animada do hover nesse botão */
+.login-button::before {
+  display: none;
+}
