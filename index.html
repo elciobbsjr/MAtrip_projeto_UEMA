@@ -1,77 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Matrip - Seu guia de experiências turísticas</title>
 
-    <!-- CSS da navbar -->
-    <link rel="stylesheet" href="/css/navbar.css">
+  <link rel="icon" href="/logo-matrip-oficial-01.png" type="image/png">
 
-    <!-- CSS do footer -->
-    <link rel="stylesheet" href="/css/footer.css">
+  <!-- Bootstrap CSS (carregado primeiro) -->
+  <link 
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" 
+    rel="stylesheet" 
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" 
+    crossorigin="anonymous">
 
-        <!-- CSS geral do index -->
-    <link rel="stylesheet" href="/css/style.css">
+  <!-- Font Awesome (ícones) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- Estilos externos -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Seus CSS customizados (vem depois do Bootstrap) -->
+  <link rel="stylesheet" href="/css/navbar.css">
+  <link rel="stylesheet" href="/css/flashcards.css">
+  <link rel="stylesheet" href="/css/footer.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/carrossel.css">
 </head>
 <body>
 
-    <!-- Navbar será injetada aqui -->
-    <div id="navbar-container"></div>
+  <!-- Navbar será injetada aqui -->
+  <div id="navbar-container"></div>
 
-    <!-- Conteúdo principal -->
-    <!-- <h1>Bem-vindo ao meu site!</h1> -->
-
-    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-indicators">
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-        </div>
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80" class="d-block w-100" alt="Praia">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>Explore praias paradisíacas</h5>
-                    <p>Descubra os melhores destinos litorâneos ao redor do mundo.</p>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1600&q=80" class="d-block w-100" alt="Montanhas">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>Aventuras nas montanhas</h5>
-                    <p>Caminhadas, trilhas e paisagens de tirar o fôlego.</p>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img src="https://images.unsplash.com/photo-1467269204594-9661b134dd2b?auto=format&fit=crop&w=1600&q=80" class="d-block w-100" alt="Cidades">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>Turismo urbano</h5>
-                    <p>Explore as cidades mais vibrantes e culturais do planeta.</p>
-                </div>
-            </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Anterior</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Próximo</span>
-        </button>
+  <!-- Carrossel -->
+  <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
     </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="/img/Barreirinhas - Circuito lagoa Azul.jpeg" class="d-block w-100" alt="Praia">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Lençóis Maranhenses – Lagoa Azul</h5>
+          <p>Um paraíso natural em Barreirinhas, onde dunas de areia branca encontram lagoas de águas cristalinas.</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="/img/santoamarogeral4.png" class="d-block w-100" alt="Montanhas">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Santo Amaro do Maranhão</h5>
+          <p>Um refúgio tranquilo no coração do Maranhão, onde rios e lagoas se encontram com a simplicidade da vida local.</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="img/paulino-neves1.jpg" class="d-block w-100" alt="Cidades">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Paulino Neves – Maranhão</h5>
+          <p>Um destino de belezas rústicas, onde praias desertas e cenários autênticos convidam ao descanso e à contemplação.</p>
+        </div>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Anterior</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Próximo</span>
+    </button>
+  </div>
 
-    <!-- Footer será injetado aqui -->
-    <div id="footer-container"></div>
+  <!-- Título antes dos flashcards -->
+  <section class="text-center my-5">
+    <h2 class="fw-bold">Escolha sua próxima experiência</h2>
+    <p class="text-muted">Passeios, cultura, aventura e muito mais para você aproveitar ao máximo.</p>
+  </section>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Flashcards -->
+  <div id="flashcards-container"></div>
 
-    <!-- JS principal -->
-    <script src="/js/main.js"></script>
+  <!-- Footer -->
+  <div id="footer-container"></div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- JS principal -->
+  <script src="/js/main.js"></script>
 </body>
 </html>

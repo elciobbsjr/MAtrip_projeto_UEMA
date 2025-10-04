@@ -1,0 +1,161 @@
+/* ====== Flashcards ====== */
+
+.cards-wrapper {
+  margin-left: 3rem;
+  margin-right: 3rem;
+}
+
+
+/* Título de cada categoria */
+.categoria h3 {
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  padding-left: 0.5rem;
+  text-align: center;
+}
+
+/* Card estilo moderno */
+.card {
+  border: none;
+  border-radius: 20px; /* arredondamento maior */
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  height: 100%;
+  background: #fff;
+  margin: 0 auto; /* centraliza */
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.2);
+}
+
+/* Imagem do card */
+.card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+/* Corpo do card */
+.card-body {
+  padding: 1.2rem;
+}
+
+.card-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.card-text {
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 1rem;
+}
+
+/* Botão do card */
+.card a.btn {
+  background-color: #00bfa6; /* turquesa da sua marca */
+  color: #fff;
+  font-weight: bold;
+  border-radius: 30px;
+  padding: 0.5rem 1.2rem;
+  text-transform: uppercase;
+  transition: background 0.3s ease;
+}
+
+.card a.btn:hover {
+  background-color: #009c87;
+  color: #fff;
+}
+
+/* ====== Responsividade ====== */
+
+/* Tablets: 2 cards por linha */
+@media (max-width: 768px) {
+  .card img {
+    height: 180px;
+  }
+}
+
+/* Celulares: 1 card por linha */
+@media (max-width: 576px) {
+  .card img {
+    height: 160px;
+  }
+}
+
+/* ====== Flashcards: layout + “look” ====== */
+
+/* espaço à esquerda/direita do bloco de flashcards */
+.cards-wrapper .container{
+  padding-left: 4rem;   /* ajuste aqui o quanto quer “respiro” lateral */
+  padding-right: 4rem;
+}
+
+/* mantém os 4 por linha no desktop e quebra correta */
+.cards-wrapper .row{
+  display:flex;
+  flex-wrap:wrap;
+  --bs-gutter-x: 1.5rem; /* controla o espaço entre colunas */
+}
+
+/* títulos das categorias */
+.cards-wrapper .categoria{
+  margin-bottom: 3rem;
+}
+.cards-wrapper .categoria h3{
+  font-weight: 800;
+  margin-bottom: 1.25rem;
+}
+
+/* ====== Card ====== */
+.cards-wrapper .card{
+  border: 0 !important;
+  border-radius: 22px !important;   /* arredondamento forte */
+  overflow: hidden !important;      /* corta a imagem nos cantos */
+  background: #fff;
+  height: 100%;
+  box-shadow: 0 6px 16px rgba(0,0,0,.12);
+  transition: transform .22s ease, box-shadow .28s ease;
+}
+.cards-wrapper .card:hover{
+  transform: translateY(-8px);
+  box-shadow: 0 14px 28px rgba(0,0,0,.18);
+}
+
+/* imagem do card */
+.cards-wrapper .card .card-img-top,
+.cards-wrapper .card img{
+  display:block;
+  width:100%;
+  height: 200px;          /* ajuste se quiser mais/menos alta */
+  object-fit: cover;
+}
+
+/* conteúdo do card */
+.cards-wrapper .card .card-body{
+  padding: 1.1rem 1.2rem 1.25rem;
+}
+.cards-wrapper .card .card-title{
+  font-size: 1.15rem;
+  font-weight: 800;
+  margin-bottom: .45rem;
+}
+.cards-wrapper .card .card-text{
+  font-size: .95rem;
+  color:#555;
+}
+
+/* ====== responsivo ====== */
+@media (max-width: 768px){
+  .cards-wrapper .container{ padding-left: 1rem; padding-right: 1rem; }
+  .cards-wrapper .card .card-img-top{ height: 180px; }
+}
+@media (max-width: 576px){
+  .cards-wrapper .container{ padding-left: .75rem; padding-right: .75rem; }
+  .cards-wrapper .card .card-img-top{ height: 160px; }
+}
+

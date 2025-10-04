@@ -1,13 +1,30 @@
+/* ====== Footer (refinado, sem mudar a cara) ====== */
+:root{
+  --footer-bg-1:#1a1c23;
+  --footer-bg-2:#242730;
+  --footer-fg:#ffffff;
+  --footer-muted:#b4b6bb;
+  --footer-accent:#f4c20d; /* amarelo da logo */
+  --footer-accent-2:#00bfa6; /* verde água */
+  --ring: 2px solid rgba(255,255,255,.45);
+}
+
 .footer {
-    background: linear-gradient(145deg, #1a1c23, #242730);
-    color: #ffffff;
+    background: linear-gradient(145deg, var(--footer-bg-1), var(--footer-bg-2));
+    color: var(--footer-fg);
+    /* respiração extra e correção de bleed da sombra interna */
+    padding-top: 40px;
+    padding-bottom: 28px;
+    position: relative;
+    isolation: isolate; /* evita blend estranho com elementos fixos */
 }
 
 .footer-title {
     color: #fff;
-    font-weight: 600;
-    margin-bottom: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1.25rem; /* um pouco menos para ritmo vertical */
     position: relative;
+    line-height: 1.25;
 }
 
 .footer-title::after {
@@ -15,86 +32,161 @@
     position: absolute;
     left: 0;
     bottom: -8px;
-    width: 30px;
-    height: 2px;
-    background: #f4c20d; /* Amarelo da logo */
+    width: 36px; /* levemente maior */
+    height: 3px; /* mais visível */
+    background: var(--footer-accent);
+    border-radius: 2px;
 }
 
 .footer-links {
     list-style: none;
     padding: 0;
+    margin: 0;
 }
 
-.footer-links li {
-    margin-bottom: 1rem;
-}
+.footer-links li { margin-bottom: .85rem; }
 
 .footer-links a {
-    color: #b4b6bb;
+    color: var(--footer-muted);
     text-decoration: none;
-    transition: all 0.3s ease;
+    transition: transform .15s ease, color .2s ease, background-color .2s ease;
+    border-radius: 8px;
+    padding: 4px 6px; /* aumenta área clicável sem quebrar layout */
+    outline: none;
 }
 
 .footer-links a:hover {
-    color: #f4c20d;
-    padding-left: 5px;
+    color: var(--footer-accent);
+    transform: translateX(2px);
 }
 
+.footer-links a:focus-visible{
+    outline: var(--ring);
+    outline-offset: 2px;
+    background: rgba(255,255,255,.06);
+    color: #fff;
+}
+
+/* Ícones sociais */
 .social-links a {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 38px;
-    height: 38px;
+    width: 40px; /* 38 -> 40: hit area */
+    height: 40px;
     border-radius: 50%;
-    background: rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.08);
     color: #ffffff;
     margin-right: 10px;
-    transition: all 0.3s ease;
+    transition: transform .15s ease, background-color .2s ease, box-shadow .2s ease;
+    outline: none;
 }
 
 .social-links a:hover {
-    background: #00bfa6;
-    transform: translateY(-3px);
+    background: var(--footer-accent-2);
+    transform: translateY(-2px);
 }
 
+.social-links a:focus-visible{
+    outline: var(--ring);
+    outline-offset: 2px;
+}
+
+/* Newsletter */
 .newsletter-input {
-    background: rgba(255,255,255,0.1);
-    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.10);
+    border: 1px solid rgba(255,255,255,0.14);
     color: #ffffff;
+    height: 42px;
+    border-radius: 10px;
+    padding: 0 12px;
+}
+
+.newsletter-input::placeholder{
+    color: rgba(255,255,255,.65);
 }
 
 .newsletter-input:focus {
     background: rgba(255,255,255,0.15);
-    border-color: #00bfa6;
+    border-color: var(--footer-accent-2);
     color: #ffffff;
-    box-shadow: none;
+    box-shadow: 0 0 0 3px rgba(0,191,166,.22);
+    outline: none;
+}
+
+/* estado inválido nativo do HTML5 sem JS */
+.newsletter-input:user-invalid{
+    border-color: #ff7675;
+    box-shadow: 0 0 0 3px rgba(255,118,117,.25);
 }
 
 .btn-subscribe {
-    background: #f4c20d;
+    background: var(--footer-accent);
     border: none;
-    padding: 0.5rem 1.5rem;
-    transition: all 0.3s ease;
+    padding: 0.55rem 1.25rem;
+    transition: transform .1s ease, filter .2s ease, background-color .2s ease;
     color: #000;
-    font-weight: 600;
+    font-weight: 700;
+    border-radius: 10px;
+    line-height: 1;
 }
 
 .btn-subscribe:hover {
-    background: #00bfa6;
-    color: #000;
-    transform: translateY(-2px);
+    background: var(--footer-accent-2);
+    color: #001;
+    transform: translateY(-1px);
 }
 
+.btn-subscribe:active{
+    transform: translateY(0);
+}
+
+.btn-subscribe:focus-visible{
+    outline: var(--ring);
+    outline-offset: 2px;
+}
+
+/* Base inferior */
 .footer-bottom {
-    background: rgba(0,0,0,0.2);
+    background: rgba(0,0,0,0.20);
+    padding: 14px 0;
+    margin-top: 22px;
+    font-size: .95rem;
 }
 
 .footer-bottom a {
-    color: #f4c20d;
+    color: var(--footer-accent);
     text-decoration: none;
+    outline: none;
 }
 
-.footer-bottom a:hover {
-    color: #00bfa6;
+.footer-bottom a:hover { color: var(--footer-accent-2); }
+
+.footer-bottom a:focus-visible{
+    outline: var(--ring);
+    outline-offset: 2px;
+    border-radius: 6px;
+}
+
+/* Grid suave para colunas do footer, sem depender do HTML exato */
+@media (min-width: 768px){
+  .footer-grid{
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0,1fr));
+    gap: 28px;
+  }
+}
+@media (max-width: 767px){
+  .footer { padding-top: 32px; padding-bottom: 22px; }
+  .footer-title { margin-top: 10px; }
+  .social-links a { margin-bottom: 8px; }
+  .newsletter-input{ width: 100%; margin-bottom: 10px; }
+}
+
+/* Respeita usuários que preferem menos animação */
+@media (prefers-reduced-motion: reduce){
+  .footer *{
+    transition: none !important;
+    animation: none !important;
+  }
 }

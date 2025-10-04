@@ -1,0 +1,125 @@
+/* ====== Carousel refinado ====== */
+:root{
+  --car-w:max(320px, min(1100px, 88vw));
+  --radius:12px;
+  --shadow:0 5px 20px rgba(0,0,0,.18);
+  --caption-bg: rgba(0,0,0,.55);
+  --caption-bg-strong: rgba(0,0,0,.65);
+  --accent:#00bfa6;  /* turquesa da tua marca */
+  --accent-2:#f4c20d;/* amarelo */
+}
+
+/* container do carousel */
+#carouselExampleCaptions,
+.carousel{
+  width: var(--car-w);
+  margin: 32px auto;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  background:#000; /* evita “flash” enquanto carrega imagem */
+}
+
+/* slides / imagens */
+.carousel-item img,
+.carousel-inner img{
+  width:100%;
+  height: 460px;               /* altura padrão desktop */
+  object-fit: cover;
+  object-position: center;
+  display:block;
+}
+
+/* legenda */
+.carousel-caption{
+  position:absolute !important;
+  left:50% !important;
+  bottom: 16% !important;
+  transform: translateX(-50%);
+  max-width: 560px;
+  padding: 1rem 1.5rem;
+  border-radius: 10px;
+  background: var(--caption-bg);
+  text-align:center;
+  backdrop-filter: saturate(140%) blur(2px);
+}
+
+.carousel-caption h5,
+.carousel-caption p{
+  color:#fff;
+  text-shadow: 0 1px 2px rgba(0,0,0,.8);
+  margin: .25rem 0;
+}
+
+/* indicadores (pontinhos) */
+.carousel-indicators{
+  bottom: 10px;
+  gap:10px;
+  margin:0 12px;
+}
+.carousel-indicators [data-bs-target]{
+  width: 10px;
+  height: 10px;
+  border-radius:99px;
+  background:#cfd8dc;
+  opacity:.8;
+  transition: width .2s ease, opacity .2s ease, background-color .2s ease;
+  border:0;
+}
+.carousel-indicators .active{
+  width: 28px;
+  background: var(--accent);
+  opacity:1;
+}
+
+/* controles (prev/next) com melhor contraste e foco */
+.carousel-control-prev,
+.carousel-control-next{
+  width: 12%;
+}
+.carousel-control-prev:focus-visible,
+.carousel-control-next:focus-visible{
+  outline: 2px solid rgba(255,255,255,.6);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+.carousel-control-prev-icon,
+.carousel-control-next-icon{
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,.55)) invert(0);
+}
+
+/* variação de legenda quando hover no slide (um pouco mais forte) */
+.carousel:hover .carousel-caption{
+  background: var(--caption-bg-strong);
+}
+
+/* ====== Responsivo ====== */
+@media (max-width: 992px){
+  .carousel-item img,
+  .carousel-inner img{ height: 400px; }
+  .carousel-caption{ bottom: 14%; max-width: 520px; }
+}
+@media (max-width: 768px){
+  .carousel-item img,
+  .carousel-inner img{ height: 340px; }
+  .carousel-caption{
+    bottom: 12%;
+    padding: .85rem 1rem;
+    max-width: 86%;
+  }
+  .carousel-caption h5{ font-size: 1.05rem; }
+  .carousel-caption p{ font-size: .95rem; }
+}
+@media (max-width: 480px){
+  .carousel-item img,
+  .carousel-inner img{ height: 280px; }
+  .carousel-caption{
+    bottom: 10%;
+    padding:.7rem .9rem;
+  }
+}
+
+/* menos animações para quem prefere */
+@media (prefers-reduced-motion: reduce){
+  .carousel *,.carousel { transition: none !important; animation: none !important; }
+}
