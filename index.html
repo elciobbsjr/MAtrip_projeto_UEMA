@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,67 +7,34 @@
 
   <link rel="icon" href="/logo-matrip-oficial-01.png" type="image/png">
 
-  <!-- Bootstrap CSS (carregado primeiro) -->
-  <link 
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" 
-    rel="stylesheet" 
-    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" 
-    crossorigin="anonymous">
+  <!-- Bootstrap CSS + Ícones -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
-  <!-- Font Awesome (ícones) -->
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Font Awesome (opcional) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  <!-- Seus CSS customizados (vem depois do Bootstrap) -->
+  <!-- CSS customizados -->
   <link rel="stylesheet" href="/css/navbar.css">
   <link rel="stylesheet" href="/css/flashcards.css">
   <link rel="stylesheet" href="/css/footer.css">
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/carrossel.css">
+  <link rel="stylesheet" href="/css/barra_de_pesquisa.css">
 </head>
+
 <body>
 
   <!-- Navbar será injetada aqui -->
   <div id="navbar-container"></div>
 
-  <!-- Carrossel -->
-  <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-indicators">
-      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-    </div>
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <img src="/img/Barreirinhas - Circuito lagoa Azul.jpeg" class="d-block w-100" alt="Praia">
-        <div class="carousel-caption d-none d-md-block">
-          <h5>Lençóis Maranhenses – Lagoa Azul</h5>
-          <p>Um paraíso natural em Barreirinhas, onde dunas de areia branca encontram lagoas de águas cristalinas.</p>
-        </div>
-      </div>
-      <div class="carousel-item">
-        <img src="/img/santoamarogeral4.png" class="d-block w-100" alt="Montanhas">
-        <div class="carousel-caption d-none d-md-block">
-          <h5>Santo Amaro do Maranhão</h5>
-          <p>Um refúgio tranquilo no coração do Maranhão, onde rios e lagoas se encontram com a simplicidade da vida local.</p>
-        </div>
-      </div>
-      <div class="carousel-item">
-        <img src="img/paulino-neves1.jpg" class="d-block w-100" alt="Cidades">
-        <div class="carousel-caption d-none d-md-block">
-          <h5>Paulino Neves – Maranhão</h5>
-          <p>Um destino de belezas rústicas, onde praias desertas e cenários autênticos convidam ao descanso e à contemplação.</p>
-        </div>
-      </div>
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Anterior</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Próximo</span>
-    </button>
-  </div>
+  <div id="carrossel-container"></div>
+
+  <!-- Barra de pesquisa -->
+  <div id="barra-pesquisa-container" class="my-4"></div>
 
   <!-- Título antes dos flashcards -->
   <section class="text-center my-5">
@@ -78,13 +45,41 @@
   <!-- Flashcards -->
   <div id="flashcards-container"></div>
 
+  <!-- Seção Parceiros -->
+  <!-- ==================== PARCEIROS (CARROSSEL FUNCIONAL) ==================== -->
+  <section class="parceiros-carousel py-5">
+    <div class="container text-center">
+      <h3 class="fw-bold mb-4">Nossos Parceiros</h3>
+      <div class="carousel-logos-wrapper">
+        <div class="carousel-logos">
+          <img src="https://logo.clearbit.com/airbnb.com" alt="Airbnb" class="parceiro-logo">
+          <img src="https://logo.clearbit.com/booking.com" alt="Booking" class="parceiro-logo">
+          <img src="https://logo.clearbit.com/tripadvisor.com" alt="TripAdvisor" class="parceiro-logo">
+          <img src="https://logo.clearbit.com/expedia.com" alt="Expedia" class="parceiro-logo">
+          <img src="https://logo.clearbit.com/google.com" alt="Google Travel" class="parceiro-logo">
+          <img src="https://logo.clearbit.com/uber.com" alt="Uber" class="parceiro-logo">
+          <img src="https://logo.clearbit.com/viator.com" alt="Viator" class="parceiro-logo">
+          <!-- duplicados para efeito contínuo -->
+          <img src="https://logo.clearbit.com/airbnb.com" alt="Airbnb" class="parceiro-logo">
+          <img src="https://logo.clearbit.com/booking.com" alt="Booking" class="parceiro-logo">
+        </div>
+      </div>
+    </div>
+  </section>
+
+
   <!-- Footer -->
   <div id="footer-container"></div>
 
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Botão flutuante "Voltar ao topo" -->
+  <button id="btn-topo" title="Voltar ao topo">
+    <i class="bi bi-arrow-up"></i>
+  </button>
+
 
   <!-- JS principal -->
   <script src="/js/main.js"></script>
+  <script src="/js/barra_de_pesquisa.js"></script>
+
 </body>
 </html>

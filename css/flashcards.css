@@ -1,161 +1,202 @@
-/* ====== Flashcards ====== */
-
-.cards-wrapper {
-  margin-left: 3rem;
-  margin-right: 3rem;
+/* ====== Layout de 3 cards centralizados ====== */
+.cards-row {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 2rem;
+  flex-wrap: nowrap;
+  margin: 0 auto;
+  max-width: 1200px;
 }
 
-
-/* Título de cada categoria */
+/* ====== Título da categoria ====== */
 .categoria h3 {
+  text-align: left;
   font-weight: 700;
   margin-bottom: 1.5rem;
-  padding-left: 0.5rem;
-  text-align: center;
+  max-width: 1200px;
+  margin: 0 auto 1.5rem;
+  padding-left: 2.5rem;
 }
 
-/* Card estilo moderno */
-.card {
+/* ====== Card ====== */
+.cards-row .card {
+  flex: 1 1 30%;
+  max-width: 360px;
+  min-width: 280px;
   border: none;
-  border-radius: 20px; /* arredondamento maior */
+  border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-  transition: transform 0.2s ease, box-shadow 0.3s ease;
-  height: 100%;
   background: #fff;
-  margin: 0 auto; /* centraliza */
+  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+  transition: transform .22s ease, box-shadow .28s ease;
+  position: relative;
 }
 
-.card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.2);
+.cards-row .card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 28px rgba(0,0,0,0.18);
 }
 
-/* Imagem do card */
-.card img {
+/* ====== Imagem ====== */
+.cards-row .card img {
+  display: block;
   width: 100%;
   height: 200px;
   object-fit: cover;
+  transition: transform 0.4s ease;
 }
 
-/* Corpo do card */
-.card-body {
+.cards-row .card:hover img {
+  transform: scale(1.05);
+}
+
+/* ====== Conteúdo ====== */
+.cards-row .card-body {
   padding: 1.2rem;
 }
 
-.card-title {
-  font-size: 1.2rem;
+.cards-row .card-title {
+  font-size: 1.15rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
 }
 
-.card-text {
+.cards-row .card-text {
   font-size: 0.95rem;
   color: #555;
-  margin-bottom: 1rem;
 }
 
-/* Botão do card */
-.card a.btn {
-  background-color: #00bfa6; /* turquesa da sua marca */
+/* ====== SEÇÃO DE PREÇOS ====== */
+.card-prices {
+  margin-top: 1rem;
+  text-align: left;
+  border-top: 1px solid #eee;
+  padding-top: 1rem;
+}
+
+.card-prices ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem;
+}
+
+.card-prices ul li {
+  font-size: 0.95rem;
+  color: #444;
+  margin-bottom: 0.4rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.card-prices ul li i {
+  color: #00bfa6;
+  font-size: 1rem;
+  width: 18px;
+  text-align: center;
+}
+
+/* ====== Preço em destaque ====== */
+.price-highlight {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f9f9f9;
+  padding: 0.8rem 1rem;
+  border-radius: 10px;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.price-highlight .price-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.price-highlight span {
+  font-size: 0.85rem;
+  color: #777;
+}
+
+.price-highlight strong {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #ff7b00;
+}
+
+/* ====== Botão Comprar ====== */
+.btn-comprar {
+  background-color: #00bfa6;
   color: #fff;
-  font-weight: bold;
-  border-radius: 30px;
-  padding: 0.5rem 1.2rem;
-  text-transform: uppercase;
-  transition: background 0.3s ease;
+  border: none;
+  border-radius: 25px;
+  padding: 0.6rem 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
 }
 
-.card a.btn:hover {
+.btn-comprar:hover {
   background-color: #009c87;
-  color: #fff;
+  transform: scale(1.05);
+}
+
+/* ====== Botão "Ver mais" ====== */
+.btn-vermais {
+  background-color: #00bfa6;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 30px;
+  padding: 0.6rem 1.5rem;
+  margin-top: 1.5rem;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.btn-vermais:hover {
+  background-color: #009c87;
+  transform: scale(1.05);
+}
+
+/* ====== Animação suave ====== */
+.extras {
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.6s ease;
+}
+
+.extras.show {
+  opacity: 1;
+  max-height: 1000px;
 }
 
 /* ====== Responsividade ====== */
-
-/* Tablets: 2 cards por linha */
-@media (max-width: 768px) {
-  .card img {
-    height: 180px;
+@media (max-width: 992px) {
+  .cards-row {
+    flex-wrap: wrap;
+  }
+  .cards-row .card {
+    flex: 1 1 45%;
   }
 }
 
-/* Celulares: 1 card por linha */
 @media (max-width: 576px) {
-  .card img {
-    height: 160px;
+  .cards-row .card {
+    flex: 1 1 100%;
+  }
+  .categoria h3 {
+    padding-left: 1rem;
+  }
+  .price-highlight {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  .btn-comprar {
+    width: 100%;
+    text-align: center;
   }
 }
-
-/* ====== Flashcards: layout + “look” ====== */
-
-/* espaço à esquerda/direita do bloco de flashcards */
-.cards-wrapper .container{
-  padding-left: 4rem;   /* ajuste aqui o quanto quer “respiro” lateral */
-  padding-right: 4rem;
-}
-
-/* mantém os 4 por linha no desktop e quebra correta */
-.cards-wrapper .row{
-  display:flex;
-  flex-wrap:wrap;
-  --bs-gutter-x: 1.5rem; /* controla o espaço entre colunas */
-}
-
-/* títulos das categorias */
-.cards-wrapper .categoria{
-  margin-bottom: 3rem;
-}
-.cards-wrapper .categoria h3{
-  font-weight: 800;
-  margin-bottom: 1.25rem;
-}
-
-/* ====== Card ====== */
-.cards-wrapper .card{
-  border: 0 !important;
-  border-radius: 22px !important;   /* arredondamento forte */
-  overflow: hidden !important;      /* corta a imagem nos cantos */
-  background: #fff;
-  height: 100%;
-  box-shadow: 0 6px 16px rgba(0,0,0,.12);
-  transition: transform .22s ease, box-shadow .28s ease;
-}
-.cards-wrapper .card:hover{
-  transform: translateY(-8px);
-  box-shadow: 0 14px 28px rgba(0,0,0,.18);
-}
-
-/* imagem do card */
-.cards-wrapper .card .card-img-top,
-.cards-wrapper .card img{
-  display:block;
-  width:100%;
-  height: 200px;          /* ajuste se quiser mais/menos alta */
-  object-fit: cover;
-}
-
-/* conteúdo do card */
-.cards-wrapper .card .card-body{
-  padding: 1.1rem 1.2rem 1.25rem;
-}
-.cards-wrapper .card .card-title{
-  font-size: 1.15rem;
-  font-weight: 800;
-  margin-bottom: .45rem;
-}
-.cards-wrapper .card .card-text{
-  font-size: .95rem;
-  color:#555;
-}
-
-/* ====== responsivo ====== */
-@media (max-width: 768px){
-  .cards-wrapper .container{ padding-left: 1rem; padding-right: 1rem; }
-  .cards-wrapper .card .card-img-top{ height: 180px; }
-}
-@media (max-width: 576px){
-  .cards-wrapper .container{ padding-left: .75rem; padding-right: .75rem; }
-  .cards-wrapper .card .card-img-top{ height: 160px; }
-}
-
