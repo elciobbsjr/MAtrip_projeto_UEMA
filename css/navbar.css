@@ -1,91 +1,204 @@
-@import url('https://fonts.googleapis.com/css?family=Work+Sans:400,600');
+/* ====== Navbar refinada ====== */
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap');
 
-body {
-  margin: 0;
-  background: #111; /* fundo mais escuro para contrastar com a logo */
-  font-family: 'Work Sans', sans-serif;
-  font-weight: 800;
-  color: white;
+:root {
+  --bg-0: #1c1c1f; /* grafite */
+  --bg-1: #25262a; /* variação */
+  --ink: #ffffff;
+  --muted: #9fa6ad; /* cor de texto neutra revisada */
+  --brand: #00bfa6;  /* turquesa */
+  --brand-2: #f4c20d;/* amarelo */
+  --ring: 2px solid rgba(255,255,255,.5);
 }
 
+/* ====== Header principal ====== */
+header {
+  background: linear-gradient(145deg, var(--bg-0), var(--bg-1));
+  position: sticky; 
+  top: 0; 
+  z-index: 50;
+  padding: 8px 0;
+  box-shadow: 0 1px 0 rgba(255,255,255,.05),
+              0 4px 14px rgba(0,0,0,.35);
+}
+
+/* ====== Container ====== */
 .container {
-  width: 80%;
+  width: 100%;
+  max-width: 1120px;
   margin: 0 auto;
+  padding: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  min-height: 64px;
+  gap: 20px;
 }
 
-header {
-  background: #000; /* fundo neutro escuro */
-  padding: 10px 0;
+/* ====== Logo + Slogan ====== */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+  color: inherit;
+  margin-left: -40px; /* encosta logo na esquerda */
 }
 
 .logo img {
-  height: 60px;
-  vertical-align: middle;
+  height: 46px;
+  display: block;
 }
 
-/* Menu */
+.logo .slogan {
+  font-size: 12.5px;
+  color: #7de5d2; /* turquesa suave */
+  padding-left: 10px;
+  border-left: 1px solid rgba(255,255,255,.1);
+  letter-spacing: .3px;
+  white-space: nowrap;
+}
+
+/* ====== Menu ====== */
 nav ul {
-  margin: 0;
-  padding: 0;
+  margin: 0; 
+  padding: 0; 
   list-style: none;
-  display: flex;
-  gap: 40px;
-}
-
-nav li {
-  position: relative;
+  display: flex; 
+  gap: 28px;
 }
 
 nav a {
-  color: #00bfa6; /* Turquesa da logo */
+  color: var(--ink);
   text-decoration: none;
   text-transform: uppercase;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
-  transition: color 0.3s ease;
+  padding: 8px 2px;
+  position: relative;
+  transition: color .25s ease;
+}
+
+nav a::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 0%;
+  height: 2px;
+  background: var(--brand);
+  transition: width .25s ease;
 }
 
 nav a:hover {
-  color: #f4c20d; /* Amarelo da logo */
+  color: var(--brand);
 }
+nav a:hover::after { width: 100%; }
 
-/* Linha animada no hover */
-nav a::before {
-  content: '';
-  display: block;
-  height: 3px;
-  background-color: #f4c20d; /* Amarelo da logo */
-  position: absolute;
-  top: 0;
-  width: 0%;
-  transition: all ease-in-out 250ms;
+nav a.is-active,
+nav a[aria-current="page"] {
+  color: var(--brand);
 }
-
-nav a:hover::before {
+nav a.is-active::after,
+nav a[aria-current="page"]::after {
   width: 100%;
 }
 
-
-/* Estilo para o botão de login */
+/* ====== Botão de login ====== */
 .login-button {
-  background-color: #f4c20d; /* amarelo da logo */
-  color: #111; /* texto escuro para contraste */
-  padding: 8px 16px;
-  border-radius: 4px;
-  text-transform: uppercase;
+  background: var(--brand-2);
+  color: #111;
+  padding: 8px 18px;
+  border-radius: 30px;
   font-weight: 700;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  text-transform: uppercase;
+  font-size: 13px;
+  transition: all .25s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,.25);
 }
-
 .login-button:hover {
-  background-color: #00bfa6; /* turquesa da logo */
-  color: #000; /* escurece levemente ao hover */
+  background: var(--brand);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,.3);
+}
+.login-button:active { transform: translateY(0); }
+
+/* Remove underline animada do botão Login */
+.login-button::after { content: none !important; }
+
+/* ====== Área de ações (idioma, conta, carrinho) ====== */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
 }
 
-/* Remove a linha animada do hover nesse botão */
-.login-button::before {
-  display: none;
+.actions .lang {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  transition: transform .2s ease;
+}
+.actions .lang:hover { transform: scale(1.1); }
+
+.actions .sep {
+  width: 1px;
+  height: 24px;
+  background: rgba(255,255,255,.15);
+}
+
+.actions .account,
+.actions .cart {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  transition: color .25s ease;
+}
+
+.actions .account:hover,
+.actions .cart:hover {
+  color: var(--brand);
+}
+
+.actions .icon {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+/* ====== Responsividade ====== */
+@media (max-width:980px) {
+  nav ul { gap: 20px; }
+  .logo img { height: 44px; }
+  .logo .slogan { font-size: 12px; padding-left: 10px; }
+}
+
+@media (max-width:720px) {
+  .container { gap: 12px; }
+  nav ul { gap: 16px; }
+  .login-button { padding: 6px 14px; font-size: 12px; }
+  .logo .slogan { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}
+
+.actions .lang img {
+  width: 22px;
+  height: 22px;
+  display: block;
+  border-radius: 2px;
+  object-fit: cover;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.1);
+  transition: transform .2s ease;
+}
+
+.actions .lang:hover img {
+  transform: scale(1.1);
 }

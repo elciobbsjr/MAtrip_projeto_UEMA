@@ -1,77 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Matrip - Seu guia de experiências turísticas</title>
 
-    <!-- CSS da navbar -->
-    <link rel="stylesheet" href="/css/navbar.css">
+  <link rel="icon" href="/logo-matrip-oficial-01.png" type="image/png">
 
-    <!-- CSS do footer -->
-    <link rel="stylesheet" href="/css/footer.css">
+  <!-- Bootstrap CSS + Ícones -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
-        <!-- CSS geral do index -->
-    <link rel="stylesheet" href="/css/style.css">
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Estilos externos -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Font Awesome (opcional) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- CSS customizados -->
+  <link rel="stylesheet" href="/css/navbar.css">
+  <link rel="stylesheet" href="/css/flashcards.css">
+  <link rel="stylesheet" href="/css/footer.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/carrossel.css">
+  <link rel="stylesheet" href="/css/barra_de_pesquisa.css">
 </head>
+
 <body>
 
-    <!-- Navbar será injetada aqui -->
-    <div id="navbar-container"></div>
+  <!-- Navbar será injetada aqui -->
+  <div id="navbar-container"></div>
 
-    <!-- Conteúdo principal -->
-    <!-- <h1>Bem-vindo ao meu site!</h1> -->
+  <div id="carrossel-container"></div>
 
-    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-indicators">
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  <!-- Barra de pesquisa -->
+  <div id="barra-pesquisa-container" class="my-4"></div>
+
+  <!-- Título antes dos flashcards -->
+  <section class="text-center my-5">
+    <h2 class="fw-bold">Escolha sua próxima experiência</h2>
+    <p class="text-muted">Passeios, cultura, aventura e muito mais para você aproveitar ao máximo.</p>
+  </section>
+
+  <!-- Flashcards -->
+  <div id="flashcards-container"></div>
+
+  <!-- Seção Parceiros -->
+  <!-- ==================== PARCEIROS (CARROSSEL FUNCIONAL) ==================== -->
+  <section class="parceiros-carousel py-5">
+    <div class="container text-center">
+      <h3 class="fw-bold mb-4">Nossos Parceiros</h3>
+      <div class="carousel-logos-wrapper">
+        <div class="carousel-logos">
+          <img src="https://logo.clearbit.com/airbnb.com" alt="Airbnb" class="parceiro-logo">
+          <img src="https://logo.clearbit.com/booking.com" alt="Booking" class="parceiro-logo">
+          <img src="https://logo.clearbit.com/tripadvisor.com" alt="TripAdvisor" class="parceiro-logo">
+          <img src="https://logo.clearbit.com/expedia.com" alt="Expedia" class="parceiro-logo">
+          <img src="https://logo.clearbit.com/google.com" alt="Google Travel" class="parceiro-logo">
+          <img src="https://logo.clearbit.com/uber.com" alt="Uber" class="parceiro-logo">
+          <img src="https://logo.clearbit.com/viator.com" alt="Viator" class="parceiro-logo">
+          <!-- duplicados para efeito contínuo -->
+          <img src="https://logo.clearbit.com/airbnb.com" alt="Airbnb" class="parceiro-logo">
+          <img src="https://logo.clearbit.com/booking.com" alt="Booking" class="parceiro-logo">
         </div>
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80" class="d-block w-100" alt="Praia">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>Explore praias paradisíacas</h5>
-                    <p>Descubra os melhores destinos litorâneos ao redor do mundo.</p>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1600&q=80" class="d-block w-100" alt="Montanhas">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>Aventuras nas montanhas</h5>
-                    <p>Caminhadas, trilhas e paisagens de tirar o fôlego.</p>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img src="https://images.unsplash.com/photo-1467269204594-9661b134dd2b?auto=format&fit=crop&w=1600&q=80" class="d-block w-100" alt="Cidades">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>Turismo urbano</h5>
-                    <p>Explore as cidades mais vibrantes e culturais do planeta.</p>
-                </div>
-            </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Anterior</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Próximo</span>
-        </button>
+      </div>
     </div>
+  </section>
 
-    <!-- Footer será injetado aqui -->
-    <div id="footer-container"></div>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Footer -->
+  <div id="footer-container"></div>
 
-    <!-- JS principal -->
-    <script src="/js/main.js"></script>
+  <!-- Botão flutuante "Voltar ao topo" -->
+  <button id="btn-topo" title="Voltar ao topo">
+    <i class="bi bi-arrow-up"></i>
+  </button>
+
+
+  <!-- JS principal -->
+  <script src="/js/main.js"></script>
+  <script src="/js/barra_de_pesquisa.js"></script>
+
 </body>
 </html>

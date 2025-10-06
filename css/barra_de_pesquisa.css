@@ -1,0 +1,90 @@
+/* ====== Barra de pesquisa ====== */
+.search-box {
+  background: #25262a;
+  border-radius: 40px;
+  padding: 6px 10px;
+  gap: 10px;
+  color: #fff;
+}
+
+/* Bandeira */
+.flag {
+  width: 32px;
+  height: 24px;
+  border-radius: 4px;
+  margin-right: 6px;
+}
+
+/* Botões de UF e Município */
+.search-box .btn {
+  border: none;
+  color: #fff;
+  font-weight: 500;
+  background: transparent;
+  border-radius: 30px;
+}
+
+.search-box .btn:hover,
+.search-box .btn:focus {
+  background-color: rgba(255,255,255,0.1);
+  box-shadow: none;
+}
+
+/* Dropdown */
+.dropdown-menu {
+  background: #1c1c1f;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 10px;
+}
+.dropdown-item {
+  color: #fff;
+}
+.dropdown-item:hover {
+  background-color: var(--brand, #00bfa6);
+  color: #111;
+}
+
+/* Botão de busca */
+.btn-brand {
+  background: var(--brand, #00bfa6);
+  color: #111;
+  font-weight: 600;
+  border-radius: 30px;
+  padding: 6px 16px;
+  transition: all 0.25s ease;
+}
+.btn-brand:hover {
+  background: var(--brand-2, #f4c20d);
+  transform: translateY(-1px);
+}
+
+/* Ícone da lupa (Bootstrap Icons) */
+.bi-search {
+  font-size: 1rem;
+  vertical-align: middle;
+}
+
+
+/* ====== Animação de aparição (fade-in) ====== */
+.barra-fadein {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.barra-fadein.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+.barra-fadein {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.barra-fadein.show {
+  opacity: 1;
+  transform: translateY(0);
+}
