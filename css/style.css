@@ -324,3 +324,15 @@ section.text-center.my-5 {
 #barra-pesquisa-container {
   margin-top: 0 !important; /* elimina espaço superior da barra */
 }
+
+.payment-icons img{
+  transition: transform .2s ease, filter .2s ease, opacity .2s ease;
+  opacity: .95;
+}
+.payment-icons img:hover{
+  transform: translateY(-2px);
+  opacity: 1;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,.2));
+}
+
+
