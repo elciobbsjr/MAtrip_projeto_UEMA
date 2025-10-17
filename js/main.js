@@ -40,28 +40,6 @@ window.addEventListener("load", () => {
 });
 
 // ==============================
-// 🎴 BOTÕES "VER MAIS / VER MENOS"
-// ==============================
-document.addEventListener("DOMContentLoaded", () => {
-  document.body.addEventListener("click", (e) => {
-    if (e.target.classList.contains("btn-vermais")) {
-      const btn = e.target;
-      const categoria = btn.closest(".categoria");
-      const extras = categoria.querySelector(".extras");
-
-      if (!extras) return;
-
-      extras.classList.toggle("show");
-
-      // Alterna texto do botão
-      btn.textContent = extras.classList.contains("show")
-        ? "Ver menos"
-        : "Ver mais";
-    }
-  });
-});
-
-// ==============================
 // 🌟 ANIMAÇÃO AO ROLAR (Scroll Reveal)
 // ==============================
 function ativarScrollReveal() {
@@ -137,4 +115,88 @@ document.addEventListener("DOMContentLoaded", () => {
       carousel.style.animationPlayState = "running";
     });
   }
+});
+
+// ==============================
+// 🎴 BOTÕES "VER MAIS / VER MENOS / VER TUDO"
+// ==============================
+document.addEventListener("DOMContentLoaded", () => {
+  document.body.addEventListener("click", (e) => {
+    // Clique no botão "Ver mais"
+    if (e.target.classList.contains("btn-vermais")) {
+      const btn = e.target;
+      const categoria = btn.closest(".categoria");
+      const extras = categoria.querySelector(".extras");
+
+      if (!extras) return;
+
+      extras.classList.toggle("show");
+
+      if (extras.classList.contains("show")) {
+        btn.style.display = "none"; // Esconde o botão original
+
+        // Cria o container dos novos botões
+        const actions = document.createElement("div");
+        actions.classList.add("btn-actions");
+
+        // Botão Ver menos
+        const btnMenos = document.createElement("button");
+        btnMenos.className = "btn-vermenos";
+        btnMenos.textContent = "Ver menos";
+
+        // Botão Ver tudo
+        const btnTudo = document.createElement("button");
+        btnTudo.className = "btn-vertudo";
+        btnTudo.textContent = "Ver tudo";
+
+        actions.appendChild(btnMenos);
+        actions.appendChild(btnTudo);
+
+        categoria.appendChild(actions);
+
+        // Animação suave nos cards extras
+        extras.querySelectorAll(".card").forEach((card, i) => {
+          card.style.opacity = "0";
+          card.style.transform = "translateY(20px)";
+          setTimeout(() => {
+            card.style.transition = "opacity .4s ease, transform .4s ease";
+            card.style.opacity = "1";
+            card.style.transform = "translateY(0)";
+          }, i * 60);
+        });
+      }
+    }
+
+    // Clique em "Ver menos"
+    if (e.target.classList.contains("btn-vermenos")) {
+      const btnMenos = e.target;
+      const categoria = btnMenos.closest(".categoria");
+      const extras = categoria.querySelector(".extras");
+      const btnVerMais = categoria.querySelector(".btn-vermais");
+      const actions = categoria.querySelector(".btn-actions");
+
+      extras.classList.remove("show");
+      actions.remove();
+      btnVerMais.style.display = "inline-block";
+    }
+
+    // Clique em "Ver tudo"
+    if (e.target.classList.contains("btn-vertudo")) {
+      document.querySelectorAll(".categoria .extras").forEach(ex => {
+        ex.classList.add("show");
+        ex.querySelectorAll(".card").forEach((card, i) => {
+          card.style.opacity = "0";
+          card.style.transform = "translateY(20px)";
+          setTimeout(() => {
+            card.style.transition = "opacity .4s ease, transform .4s ease";
+            card.style.opacity = "1";
+            card.style.transform = "translateY(0)";
+          }, i * 50);
+        });
+      });
+
+      document.querySelectorAll(".btn-actions")?.forEach(a => a.remove());
+      document.querySelectorAll(".btn-vermais")?.forEach(b => b.style.display = "none");
+    }
+  });
 });
