@@ -235,3 +235,30 @@ input[type="tel"] {
   outline:none;
   transition: border-color .15s ease, background-color .15s ease, box-shadow .15s ease;
 }
+
+/* ====== Estilos de erro ====== */
+.error-validation {
+  color: #ff7070;
+  font-size: 12px;
+  margin-top: 4px;
+  font-weight: 600;
+  animation: fadeIn 0.25s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-3px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ====== Destaque visual nos campos inválidos ====== */
+input:invalid,
+input.error {
+  border-color: #ff6b6b !important;
+  box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.15) !important;
+}
+
+/* ====== Campos válidos ====== */
+input:valid {
+  border-color: #00bfa6 !important;
+  box-shadow: 0 0 0 3px rgba(0, 191, 166, 0.2) !important;
+}

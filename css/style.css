@@ -1,15 +1,19 @@
 /* ====== Reset / Geral ====== */
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,100,900);
 
-html,
-body {
-  -moz-box-sizing: border-box;
+/* ====== Estilo global corrigido ====== */
+html, body {
   box-sizing: border-box;
   font-family: 'Roboto', sans-serif;
   font-weight: 400;
-  background: #fff !important;
-  color: #000; /* texto padrão */
+  color: #000;
 }
+
+/* Fundo padrão só em páginas comuns, não no login/cadastro */
+body:not(.login-page):not(.cadastro-page) {
+  background: #fff;
+}
+
 
 /* Wrapper dos flashcards */
 .cards-wrapper {

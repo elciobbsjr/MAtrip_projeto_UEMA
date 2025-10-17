@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Matrip — Cadastro</title>
 
-  <!-- Bootstrap (se necessário) -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-  <!-- CSS de login reaproveitado -->
+  <!-- CSS principal -->
   <link rel="stylesheet" href="/css/login.css">
   <link rel="stylesheet" href="/css/navbar.css">
   <link rel="stylesheet" href="/css/footer.css">
+  <link rel="stylesheet" href="/css/cadastro.css">
 
   <link rel="icon" href="/logo-matrip-oficial-01.png" type="image/png">
 </head>
@@ -19,7 +19,6 @@
   <!-- Navbar -->
   <div id="navbar-container"></div>
 
-  <!-- Conteúdo -->
   <main class="login-shell">
     <div class="login-card" role="form" aria-labelledby="cadastroTitle">
       <a href="/" class="brand">
@@ -32,47 +31,63 @@
       <form id="cadastroForm" novalidate>
         <div class="form-group">
           <label for="nome">Nome</label>
-          <input id="nome" name="nome" type="text" required placeholder="Seu nome completo">
+          <input id="nome" name="nome" type="text"
+                 data-required
+                 data-only-letters
+                 data-min-length="3"
+                 placeholder="Seu nome completo">
         </div>
 
         <div class="form-group">
           <label for="email">E-mail</label>
-          <input id="email" name="email" type="email" required placeholder="seu@email.com">
+          <input id="email" name="email" type="email"
+                 data-required
+                 data-email-validate
+                 placeholder="seu@email.com">
         </div>
 
         <div class="form-group">
           <label for="contato">Contato</label>
-          <input id="contato" name="contato" type="tel" required placeholder="(xx) xxxxx-xxxx">
+          <input id="contato" name="contato" type="tel"
+                 data-required
+                 data-min-length="8"
+                 placeholder="(xx) xxxxx-xxxx">
         </div>
 
         <div class="form-group">
           <label for="senha">Senha</label>
           <div class="password-wrap">
-            <input id="senha" name="senha" type="password" required placeholder="Crie uma senha">
+            <input id="senha" name="senha" type="password"
+                   data-required
+                   data-password-validate
+                   data-min-length="8"
+                   placeholder="Crie uma senha">
             <button type="button" class="toggle-pass" aria-label="Mostrar senha" aria-controls="senha">👁️</button>
           </div>
-          <small class="field-hint">Mínimo de 8 caracteres.</small>
+          <small class="field-hint">Mínimo de 8 caracteres, uma letra maiúscula e um número.</small>
         </div>
 
         <div class="form-group">
           <label for="confirma">Confirmar senha</label>
-          <input id="confirma" name="confirma" type="password" required placeholder="Repita a senha">
+          <input id="confirma" name="confirma" type="password"
+                 data-required
+                 data-equal="senha"
+                 placeholder="Repita a senha">
         </div>
 
         <div class="form-row">
           <label class="check">
-            <input type="checkbox" name="termos" required>
+            <input type="checkbox" name="termos" data-required>
             <span>Eu li e aceito os <a class="link" href="#">termos de uso</a></span>
           </label>
         </div>
 
-        <button type="submit" class="btn-primary">Cadastrar</button>
+        <button id="btn-submit" type="submit" class="btn-primary">Cadastrar</button>
 
         <p class="signup-hint">Já tem conta? <a class="link" href="/paginas/login.html">Entrar</a></p>
       </form>
     </div>
 
-    <!-- Brilhos decorativos -->
     <div class="glow glow-1"></div>
     <div class="glow glow-2"></div>
   </main>
@@ -81,24 +96,17 @@
   <div id="footer-container"></div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="/js/cadastro.js"></script>
+
+  <!-- Scripts -->
+  <script src="/js/validator.js"></script>
   <script>
-    // Mostrar/ocultar senha
+    // Mostrar / ocultar senha
     const btnToggle = document.querySelector('.toggle-pass');
     const inputPass = document.getElementById('senha');
     btnToggle?.addEventListener('click', () => {
       const isPwd = inputPass.type === 'password';
       inputPass.type = isPwd ? 'text' : 'password';
       btnToggle.setAttribute('aria-label', isPwd ? 'Ocultar senha' : 'Mostrar senha');
-    });
-
-    // Validação simples
-    document.getElementById('cadastroForm')?.addEventListener('submit', (e) => {
-      const form = e.currentTarget;
-      if (!form.checkValidity()) {
-        e.preventDefault();
-        form.classList.add('was-validated');
-      }
     });
   </script>
 </body>
