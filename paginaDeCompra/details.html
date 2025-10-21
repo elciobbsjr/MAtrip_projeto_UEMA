@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lençóis Maranhenses - Lagoa Azul | Matrip</title>
+    <meta name="description"
+        content="Explore o passeio Lençóis Maranhenses - Lagoa Azul. Informações, fotos, valores e reservas online.">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Flatpickr CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/material_green.css">
+</head>
+
+<!-- Modal de confirmação -->
+<div id="modal-confirmacao" class="modal">
+    <div class="modal-conteudo">
+        <h3>Compra confirmada!</h3>
+        <p>Obrigado por reservar com a Matrip 🌴</p>
+        <button id="btn-fechar-modal">Fechar</button>
+    </div>
+</div>
+
+<body>
+    <!-- ====== NAVBAR ====== -->
+  <div id="navbar-container"></div>
+
+
+    <!-- ====== DETALHES ====== -->
+    <main>
+        <div class="detalhes-passeio">
+            <h1>Lençóis Maranhenses - Lagoa Azul</h1>
+            <p class="localizacao">
+            <span>Brasil, </span>
+            <span class="tooltip" id="link-maranhao" data-tooltip="Descubra o Maranhão">Maranhão, </span>
+            <span class="tooltip" id="link-santoamaro" data-tooltip="Explore Santo Amaro">Santo Amaro.</span>
+            </p>
+
+
+
+            <!-- ====== CARROSSEL ====== -->
+            <div class="carrossel">
+                <div class="imagens">
+                    <img src="./img/Image 2020-07-13 at 17.59.08.jpeg" alt="Lagoa Azul nos Lençóis Maranhenses"
+                        class="imagem-ativa">
+                    <img src="./img/Image 2020-07-13 at 17.42.50 (1).jpeg"
+                        alt="Dunas e lagoas cristalinas nos Lençóis Maranhenses">
+                    <img src="./img/Image 2020-07-13 at 17.50.48.jpeg" alt="Vista panorâmica do passeio em Santo Amaro">
+                    <img src="./img/Lagoa-Azul (1).jpeg" alt="Lagoa Azul 1">
+                    <img src="./img/Lagoa-Azul (2).jpeg" alt="Lagoa Azul 2">
+                    <img src="./img/Lagoa-Azul (3).jpeg" alt="Lagoa Azul 3">
+                    <img src="./img/Lagoa-Azul (4).jpeg" alt="Lagoa Azul 4">
+                </div>
+                <div class="descricao-passeio card">
+                    <div class="preco">
+                        <p class="valor"><strong>R$ 200,00</strong></p>
+                        <p class="parcelamento">ou 12x de R$ 16,67 sem juros</p>
+                    </div>
+
+                    <div class="formulario-compra">
+                        <div class="campo-data">
+                            <label for="data">Selecione a data do passeio:</label>
+                            <div class="input-data-wrapper">
+                                <span class="icone-calendario"></span>
+                                <input type="text" id="data" name="data" placeholder="dd/mm/aaaa">
+                                <span class="seta-calendario"></span>
+                            </div>
+                        </div>
+
+
+                        <div class="categorias" style="display: none;">
+                            <fieldset>
+                                <legend>Adultos</legend>
+                                <div class="grupo-categoria">
+                                    <label>Integral</label>
+                                    <input type="number" id="adultos-integral" min="0" value="0">
+                                    <label>Meia</label>
+                                    <input type="number" id="adultos-meia" min="0" value="0">
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <legend>Crianças</legend>
+                                <div class="grupo-categoria">
+                                    <label>Integral</label>
+                                    <input type="number" id="criancas-integral" min="0" value="0">
+                                    <label>Meia</label>
+                                    <input type="number" id="criancas-meia" min="0" value="0">
+                                </div>
+                            </fieldset>
+                        </div>
+
+                        <div class="total" style="display: none;">
+                            <p><strong>Total a Pagar:</strong> <span id="total-valor">R$ 0,00</span></p>
+                            <button id="btn-confirmar">Confirmar Reserva</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ====== MINIATURAS DO CARROSSEL ====== -->
+            <div class="miniaturas">
+                <img src="./img/Image 2020-07-13 at 17.59.08.jpeg" alt="Miniatura Lagoa Azul" data-index="0"
+                    class="thumb ativa">
+                <img src="./img/Image 2020-07-13 at 17.42.50 (1).jpeg" alt="Miniatura Dunas" data-index="1"
+                    class="thumb">
+                <img src="./img/Image 2020-07-13 at 17.50.48.jpeg" alt="Miniatura Panorama" data-index="2"
+                    class="thumb">
+                <img src="./img/Lagoa-Azul (1).jpeg" alt="Lagoa Azul 1" data-index="3" class="thumb">
+                <img src="./img/Lagoa-Azul (2).jpeg" alt="Lagoa Azul 2" data-index="4" class="thumb">
+                <img src="./img/Lagoa-Azul (3).jpeg" alt="Lagoa Azul 3" data-index="5" class="thumb">
+                <img src="./img/Lagoa-Azul (4).jpeg" alt="Lagoa Azul 4" data-index="6" class="thumb">
+            </div>
+
+
+            <!-- ====== INDICADORES ====== -->
+            <div class="indicadores"></div>
+
+            <!-- ====== AVALIAÇÃO ====== -->
+            <!-- Avaliação -->
+            <section class="avaliacao">
+                <h2>Avaliação do Passeio</h2>
+                <div class="estrelas" id="avaliacao-estrelas">
+                    <span data-valor="1">☆</span>
+                    <span data-valor="2">☆</span>
+                    <span data-valor="3">☆</span>
+                    <span data-valor="4">☆</span>
+                    <span data-valor="5">☆</span>
+                </div>
+                <p id="nota-avaliacao">Avalie este passeio!</p>
+            </section>
+
+
+            <!-- ====== DESCRIÇÃO ====== -->
+            <section class="descricao">
+                <h2>Descrição do Passeio</h2>
+                <p>Explore as dunas brancas e lagoas cristalinas do Parque Nacional dos Lençóis Maranhenses em um
+                    passeio inesquecível pela Lagoa Azul. Acompanhado por guias locais, descubra os encantos naturais e
+                    a cultura de Santo Amaro.</p>
+            </section>
+
+            <!-- ====== ROTEIRO ====== -->
+            <section class="roteiro">
+                <h2>Roteiro</h2>
+                <ul>
+                    <li>Saida (horário)</li>
+                    <li>Parada em</li>
+                    <li>Retorno às</li>
+                </ul>
+            </section>
+
+            <!-- ====== INCLUSOS ====== -->
+            <section class="inclusos">
+                <h2>O que inclui</h2>
+                <ul>
+                    <li>Transporte</li>
+                    <li>Guias locais experientes</li>
+                    <li>Cadeiras</li>
+                </ul>
+            </section>
+
+            <!-- ====== LOCAIS DE EMBARQUE ====== -->
+            <section class="embarque">
+                <h2>Locais de embarque</h2>
+                <ul>
+                    <li>Local 1</li>
+                    <li>Local 2</li>
+                    <li>Local 3</li>
+                </ul>
+            </section>
+
+            <!-- ====== FREQUÊNCIA ====== -->
+            <section class="frequencia">
+                <h2>Frequência</h2>
+                <ul>
+                    <li>8h</li>
+                    <li>10h</li>
+                    <li>13h</li>
+                    <li>15h</li>
+                </ul>
+            </section>
+
+            <!-- ====== CLASSIFICAÇÃO ====== -->
+            <section class="clssificacao">
+                <h2>Classificação</h2>
+                <ul>
+                    <li>A partir de X anos de idade</li>
+                </ul>
+            </section>
+
+            <!-- ====== INFORMAÇÕES IMPORTANTES ====== -->
+            <section class="alertas">
+                <h2>Informações importantes</h2>
+                <ul>
+                    <li>Info 01</li>
+                    <li>Info 02</li>
+                    <li>Info 03</li>
+                    <li>Info 04</li>
+                </ul>
+            </section>
+
+            <!-- ====== PAGAMENTO ====== -->
+            <section class="pagamento">
+                <h2>Formas de Pagamento</h2>
+                <ul>
+                    <li>Cartão de Crédito</li>
+                    <li>Cartão de Débito</li>
+                    <li>Pix</li>
+                </ul>
+            </section>
+
+            <!-- ====== CANCELAMENTOS ====== -->
+            <section class="cancelamentos">
+                <h2>Cancelamentos</h2>
+                <ul>
+                    <li>Reembolso...</li>
+                </ul>
+            </section>
+        </div>
+    </main>
+
+    <!-- ====== FOOTER ====== -->
+    <footer>
+        <p>© 2025 Matrip. Todos os direitos reservados.</p>
+        <p><a href="#">Política de Privacidade</a> | <a href="#">Termos de Uso</a></p>
+    </footer>
+
+    <!-- ====== MODAL ====== -->
+    <div id="modal-info" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <!-- Flatpickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <script src="/paginaDeCompra/script.js"></script>
+
+    <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    fetch("../navbar.html")
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById("navbar-container").innerHTML = data;
+      })
+      .catch(error => console.error("Erro ao carregar navbar:", error));
+  });
+</script>
+
+</body>
+
+</html>
