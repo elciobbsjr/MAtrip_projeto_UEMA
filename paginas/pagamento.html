@@ -2,8 +2,8 @@
 <html lang="pt-BR">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pagamento – Matrip</title>
 
   <!-- Bootstrap -->
@@ -11,18 +11,17 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/css/checkout.css">
+  <!--<link rel="stylesheet" href="/css/carrinho.css">-->
   <link rel="stylesheet" href="/css/pagamento.css">
 </head>
 
 <body>
 
-  <!-- ===== NAVBAR ===== -->
+  <!-- NAVBAR -->
   <nav class="navbar navbar-expand-lg navbar-dark py-2">
     <div class="container d-flex justify-content-between align-items-center">
-
       <a class="navbar-brand fw-bold fs-4 text-white" href="/">
-        <img src="/logo-matrip-oficial-01.png" alt="Matrip" style="height:70px; margin-right:8px; vertical-align:middle;">
+        <img src="/logo-matrip-oficial-01.png" alt="Matrip" style="height:70px; margin-right:8px;">
         <span class="slogan">Seu guia de experiências turísticas</span>
       </a>
 
@@ -30,17 +29,38 @@
         <i class="bi bi-shield-check"></i>
         <small>ambiente <span>100% seguro</span></small>
       </div>
-
     </div>
   </nav>
 
-  <!-- ===== Cabeçalho ===== -->
+  <!-- BARRA DE PROGRESSO MODELO 2 -->
+  <div class="progress-container">
+    <div class="step done">
+      <i class="bi bi-cart-check"></i>
+      <span>Carrinho</span>
+    </div>
+
+    <div class="step done">
+      <i class="bi bi-file-earmark-text"></i>
+      <span>Dados</span>
+    </div>
+
+    <div class="step active">
+      <i class="bi bi-credit-card"></i>
+      <span>Pagamento</span>
+    </div>
+
+    <div class="step">
+      <i class="bi bi-check2-circle"></i>
+      <span>Confirmação</span>
+    </div>
+  </div>
+
+  <!-- CABEÇALHO -->
   <header class="checkout-header">
     <h2><i class="bi bi-credit-card"></i> Pagamento – Matrip</h2>
     <p class="subtitle">Selecione a forma de pagamento e finalize sua reserva.</p>
   </header>
 
-  <!-- ===== Conteúdo Principal ===== -->
   <div class="container my-5">
     <div class="row g-4">
 
@@ -50,55 +70,62 @@
         <div class="card shadow-sm p-4">
           <h4 class="fw-semibold mb-4">Formas de Pagamento</h4>
 
-          <!-- ABAS DE PAGAMENTO -->
-          <ul class="nav nav-tabs" id="paymentTabs" role="tablist">
-            <li class="nav-item" role="presentation">
-              <button class="nav-link active" id="pix-tab" data-bs-toggle="tab" data-bs-target="#pix" type="button"
-                role="tab">PIX</button>
+          <!-- ABAS -->
+          <ul class="nav nav-tabs payment-tabs" id="paymentTabs">
+            <li class="nav-item">
+              <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#pix">
+                <i class="bi bi-qr-code"></i> PIX
+              </button>
             </li>
-
-            <li class="nav-item" role="presentation">
-              <button class="nav-link" id="card-tab" data-bs-toggle="tab" data-bs-target="#card" type="button"
-                role="tab">Cartão de Crédito</button>
+            <li class="nav-item">
+              <button class="nav-link" data-bs-toggle="tab" data-bs-target="#card">
+                <i class="bi bi-credit-card-2-front"></i> Cartão
+              </button>
             </li>
-
-            <li class="nav-item" role="presentation">
-              <button class="nav-link" id="boleto-tab" data-bs-toggle="tab" data-bs-target="#boleto" type="button"
-                role="tab">Boleto</button>
+            <li class="nav-item">
+              <button class="nav-link" data-bs-toggle="tab" data-bs-target="#boleto">
+                <i class="bi bi-receipt"></i> Boleto
+              </button>
             </li>
           </ul>
 
-          <div class="tab-content mt-4" id="paymentTabsContent">
+          <div class="tab-content mt-4">
 
-            <!-- ================= PIX ================= -->
-            <div class="tab-pane fade show active" id="pix" role="tabpanel">
-              <p class="text-muted">Pagamento rápido e seguro. Após confirmar, o QR Code será exibido.</p>
-              <button class="btn btn-checkout w-100 mt-3">Gerar QR Code PIX</button>
+            <!-- PIX -->
+            <div class="tab-pane fade show active" id="pix">
+              <p class="text-muted">Clique abaixo para gerar o QR Code PIX.</p>
+
+              <button class="btn btn-checkout w-100" id="btnPix">
+                Gerar QR Code PIX
+              </button>
+
+              <button class="btn btn-outline-success w-100 mt-3" onclick="finalizarPagamento()">
+                Já paguei — Continuar
+              </button>
             </div>
 
-            <!-- ================= CARTÃO ================= -->
-            <div class="tab-pane fade" id="card" role="tabpanel">
-
-              <div class="row g-3">
+            <!-- CARTÃO -->
+            <div class="tab-pane fade" id="card">
+              <div class="row gy-3 gx-4">
 
                 <div class="col-md-6">
                   <label class="form-label">Nome no cartão</label>
-                  <input type="text" class="form-control">
+                  <input type="text" class="form-control" id="nomeCartao" placeholder="Como no cartão">
                 </div>
 
                 <div class="col-md-6">
                   <label class="form-label">Número do cartão</label>
-                  <input type="text" class="form-control">
+                  <input type="text" class="form-control" id="numCartao" placeholder="0000 0000 0000 0000">
                 </div>
 
                 <div class="col-md-4">
                   <label class="form-label">Validade</label>
-                  <input type="text" placeholder="MM/AA" class="form-control">
+                  <input type="text" class="form-control" id="validadeCartao" placeholder="MM/AA">
                 </div>
 
                 <div class="col-md-4">
                   <label class="form-label">CVV</label>
-                  <input type="text" class="form-control">
+                  <input type="text" class="form-control" id="cvvCartao" placeholder="123">
                 </div>
 
                 <div class="col-md-4">
@@ -112,13 +139,19 @@
 
               </div>
 
-              <button class="btn btn-checkout w-100 mt-4">Pagar com Cartão</button>
+              <button class="btn btn-checkout w-100 mt-4" onclick="finalizarPagamento()">
+                Pagar com Cartão
+              </button>
             </div>
 
-            <!-- ================= BOLETO ================= -->
-            <div class="tab-pane fade" id="boleto" role="tabpanel">
+
+            <!-- BOLETO -->
+            <div class="tab-pane fade" id="boleto">
               <p class="text-muted">O boleto será gerado após a confirmação.</p>
-              <button class="btn btn-checkout w-100 mt-3">Gerar Boleto</button>
+
+              <button class="btn btn-checkout w-100" onclick="finalizarPagamento()">
+                Gerar Boleto
+              </button>
             </div>
 
           </div>
@@ -126,7 +159,7 @@
 
       </div>
 
-      <!-- ===== RESUMO ===== -->
+      <!-- COLUNA RESUMO -->
       <div class="col-lg-4">
         <div class="summary-box">
           <h5 class="mb-3">Resumo da Compra</h5>
@@ -149,7 +182,7 @@
           </div>
 
           <p class="text-muted small text-center">
-            Seus dados estão seguros e criptografados.
+            🔒 Seus dados estão protegidos com criptografia SSL 256-bit.
           </p>
         </div>
       </div>
@@ -157,8 +190,31 @@
     </div>
   </div>
 
+  <!-- MODAL PIX -->
+  <div class="modal fade" id="modalPix" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content p-3">
+        <h4 class="mb-3 text-center">PIX Gerado</h4>
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=PagamentoMatrip" class="mx-auto d-block">
+
+        <button class="btn btn-outline-success w-100 mt-3" id="copiarPix">Copiar Código PIX</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-</body>
+  <script>
+    function finalizarPagamento() {
+      window.location.href = "/paginas/confirmacao.html";
+    }
 
+    document.getElementById("btnPix").addEventListener("click", () => {
+      const modal = new bootstrap.Modal(document.getElementById('modalPix'));
+      modal.show();
+    });
+  </script>
+
+</body>
 </html>

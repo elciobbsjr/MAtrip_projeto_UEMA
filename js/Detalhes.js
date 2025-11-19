@@ -149,13 +149,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const infos = {
         maranhao: {
             titulo: 'Maranhão',
-            imagem: './img/maranhao.jpg',
+            imagem: '../img/maranhao.jpg',
             texto: 'O Maranhão é um estado do Nordeste brasileiro, conhecido pelos Lençóis Maranhenses, uma das paisagens mais impressionantes do país, e por sua rica cultura e culinária típica.',
             link: ''
         },
         santoamaro: {
             titulo: 'Santo Amaro',
-            imagem: './img/santo-amaro.jpg',
+            imagem: '../img/santo-amaro.jpg',
             texto: "Município conhecido por ter as lagoas mais bonitas entre as três cidades base dos Lençóis Maranhenses. Santo Amaro do Maranhão é um município do estado do Maranhão, limita-se ao Norte com o Oceano Atlântico; a Leste com o município de Barreirinhas; a Oeste com o município de Primeira Cruz e ao Sul com o município de Barreirinhas. É um importante polo turístico, nos Lençóis Maranhenses. É banhada pelo Rio Alegre, e o Lago de Santo Amaro. O acesso é através da BR 135, depois pela MA 402 e por fim mais 36 km de estrada de asfalto super tranquila até os estacionamentos no bairro olho d'água. É um dos acessos e o mais próximo para o Parque Nacional dos Lençóis Maranhenses, uma área virgem e quase inexplorada. Apesar do quase anonimato da cidade, a maioria do território dos Lençóis faz parte do município que detém mais da metade do território incluindo inclusive as lagoas maiores. O parque é de fato dividido entre os municípios de Santo Amaro, Barreirinhas e Primeira Cruz embora essa última possua apenas uma pequena parte constituída principalmente por manguezais. Além das lagoas aqui há de fato inúmeras trilhas que para os amantes de paisagens e natureza serão inesquecíveis. Dentre os pontos turísticos do local, destaca-se a Lagoa da Gaivota, cenário do filme Casa de Areia. As principais atrações são as lagoas do Parque Nacional dos Lençóis Maranhenses, sendo o mais belo passeio o da Lagoa das Emendadas, que exige um percurso de 4h a pé, contando ida e volta. Nada que vários mergulhos pelo caminho não aplaquem o cansaço da caminhada. As lagoas mais acessíveis de Santo Amaro são a Lagoa da Andorinha e a Lagoa da Gaivota. As duas podem ser visitadas no mesmo dia e, o que é melhor, com belo pôr do sol. Mais afastadas, estão a Lagoa do Espigão e a Lagoa da Betânia, que são visitadas em passeio de dia inteiro, também com entardecer. Para fechar o circuito de lagoas, invista no passeio de barco até a Lagoa da América. Quem tiver mais tempo na cidade poderá tentar um passeio para a Praia da Travosa, onde há uma pequena comunidade pesqueira. Para descansar na cidade, sem fazer passeios, o ideal é seguir até o rio que corta a região e tomar um delicioso banho de frente para os quiosques que vendem bebida gelada e petiscos fresquinhos.",
             link: ''
         }
