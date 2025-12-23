@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Matrip — Dashboard</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="stylesheet" href="/css/navbar.css">
+  <link rel="stylesheet" href="/css/footer.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <div id="navbar-container"></div>
+
+  <main class="dashboard">
+
+    <!-- HEADER -->
+    <header class="dashboard-header">
+      <div>
+        <h1 id="welcomeText">Bem-vindo!</h1>
+        <p id="roleText"></p>
+      </div>
+
+      <button id="logoutBtn" class="btn-logout">Sair</button>
+    </header>
+
+    <!-- ================= ADMIN ================= -->
+    <section id="admin-area" class="dashboard-section">
+      <h2>Painel do Administrador</h2>
+
+      <div class="card-grid">
+        <div class="card card-action" id="btnGerenciarUsuarios">
+          <h3>Gerenciar usuários</h3>
+          <p>Alterar tipo de conta e permissões</p>
+        </div>
+
+        <div class="card card-disabled">
+          <h3>Gerenciar guias</h3>
+          <p>Em breve</p>
+        </div>
+
+        <div class="card card-disabled">
+          <h3>Relatórios do sistema</h3>
+          <p>Em breve</p>
+        </div>
+      </div>
+
+      <!-- TABELA ADMIN -->
+      <div id="adminTableWrapper" class="admin-table-wrapper">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Email</th>
+              <th>Tipo</th>
+              <th>Ação</th>
+            </tr>
+          </thead>
+          <tbody id="admin-users"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ================= USUÁRIO ================= -->
+    <section id="user-area" class="dashboard-section">
+      <h2>Área do Usuário</h2>
+
+      <div class="card-grid">
+        <div class="card">
+          <h3>Minhas viagens</h3>
+        </div>
+        <div class="card">
+          <h3>Perfil</h3>
+        </div>
+        <div class="card">
+          <h3>Histórico</h3>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= GUIA ================= -->
+    <section id="guia-area" class="dashboard-section">
+      <h2>Painel do Guia Turístico</h2>
+
+      <div class="card-grid">
+        <div class="card">
+          <h3>Meus roteiros</h3>
+        </div>
+        <div class="card">
+          <h3>Agenda</h3>
+        </div>
+        <div class="card">
+          <h3>Clientes</h3>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- JS -->
+  <script src="../js/main.js"></script>
+  <script src="../js/dashboard.js"></script>
+</body>
+</html>

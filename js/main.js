@@ -201,3 +201,42 @@ function configurarBotoesVerMais() {
     }
   });
 }
+
+const logoutBtn = document.getElementById('logoutBtn');
+
+logoutBtn?.addEventListener('click', () => {
+  localStorage.removeItem('usuario');
+  localStorage.removeItem('tipo');
+
+  window.location.href = '/paginas/login1.html';
+});
+
+
+document.addEventListener('click', function (e) {
+  const btn = e.target.closest('#btnMinhaConta');
+  if (!btn) return;
+
+  e.preventDefault();
+
+  const usuario = localStorage.getItem('usuario');
+  const tipo    = localStorage.getItem('tipo');
+
+  // NÃO LOGADO
+  if (!usuario || !tipo) {
+    window.location.href = '/paginas/login1.html';
+    return;
+  }
+
+  // LOGADO
+  window.location.href = '/paginas/dashboard.html';
+});
+
+const usuario = localStorage.getItem('usuario');
+if (usuario) {
+  const span = document.querySelector('#btnMinhaConta span');
+  if (span) span.textContent = 'Painel';
+}
+
+if (usuario) {
+  document.querySelector('#btnMinhaConta')?.classList.add('logged');
+}
