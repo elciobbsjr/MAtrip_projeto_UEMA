@@ -1,0 +1,274 @@
+/* ===============================
+   RESET LOCAL
+================================ */
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+/* ===============================
+   PÁGINA
+================================ */
+.passeio-page {
+  background: #f4f6f8;
+  padding-bottom: 40px;
+}
+
+.passeio-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px 0;
+}
+
+.passeio-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 40px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+}
+
+/* ===============================
+   HEADER DO CARD
+================================ */
+.passeio-header h1 {
+  font-size: 28px;
+  margin-bottom: 6px;
+  color: #1f2937;
+}
+
+.passeio-header p {
+  color: #6b7280;
+  margin-bottom: 30px;
+}
+
+/* ===============================
+   FORM
+================================ */
+.passeio-form {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.passeio-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.passeio-field label {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.passeio-field label small {
+  font-weight: 400;
+  color: #6b7280;
+}
+
+/* ===============================
+   INPUTS / SELECT / TEXTAREA
+================================ */
+.passeio-field input,
+.passeio-field textarea,
+.passeio-field select {
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+  background: #fff;
+}
+
+.passeio-field textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.passeio-field input:focus,
+.passeio-field textarea:focus,
+.passeio-field select:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+/* ===============================
+   GRID DE VALORES
+================================ */
+.passeio-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+/* ===============================
+   UPLOAD / PREVIEW
+================================ */
+.passeio-field small {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.passeio-preview {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.passeio-preview img {
+  width: 90px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+}
+
+/* ===============================
+   BOTÃO
+================================ */
+.passeio-btn {
+  margin-top: 10px;
+  align-self: flex-start;
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  padding: 14px 28px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.passeio-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(37,99,235,.3);
+}
+
+/* ===============================
+   RESPONSIVO
+================================ */
+@media (max-width: 768px) {
+  .passeio-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .passeio-card {
+    padding: 25px;
+  }
+
+  .passeio-btn {
+    width: 100%;
+  }
+}
+
+/* ===============================
+   CATEGORIAS EM BALÕES (GLASS)
+================================ */
+
+.passeio-categorias {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+/* esconde o radio */
+.categoria-chip input {
+  display: none;
+}
+
+/* visual do balão */
+.categoria-chip span {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: #1f2937;
+
+  transition: all 0.25s ease;
+}
+
+/* hover */
+.categoria-chip span:hover {
+  background: rgba(255, 255, 255, 0.75);
+  transform: translateY(-1px);
+}
+
+/* selecionado */
+.categoria-chip input:checked + span {
+  background: rgba(37, 99, 235, 0.85);
+  color: #ffffff;
+  border-color: rgba(37, 99, 235, 0.9);
+  box-shadow: 0 6px 18px rgba(37, 99, 235, 0.35);
+}
+
+/* foco acessível (teclado) */
+.categoria-chip input:focus + span {
+  outline: 2px solid rgba(37, 99, 235, 0.5);
+  outline-offset: 2px;
+}
+/* ===============================
+   CATEGORIAS – ESTILO PÍLULA (HOME)
+================================ */
+
+.passeio-categorias-pill {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+/* esconde radio */
+.categoria-pill input {
+  display: none;
+}
+
+/* pílula */
+.categoria-pill span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 14px 28px;
+  min-width: 130px;
+
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 500;
+
+  background: #f6f1ec; /* mesmo tom da home */
+  color: #1f2937;
+
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+/* hover */
+.categoria-pill span:hover {
+  background: #eee6de;
+}
+
+/* selecionado */
+.categoria-pill input:checked + span {
+  background: #003543; /* cor da navbar */
+  color: #ffffff;
+  box-shadow: 0 8px 20px rgba(0, 53, 67, 0.35);
+  transform: translateY(-1px);
+}
+
+/* foco teclado */
+.categoria-pill input:focus + span {
+  outline: 2px solid rgba(0, 53, 67, 0.4);
+  outline-offset: 3px;
+}

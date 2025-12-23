@@ -1,0 +1,140 @@
+/* ===============================
+   PÁGINA CADASTRO DE PASSEIO
+   TOTALMENTE ISOLADA
+================================ */
+
+.passeio-page {
+  background-color: #f4f6f8;
+  padding: 40px 20px;
+  min-height: calc(100vh - 80px);
+}
+
+.passeio-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.passeio-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 40px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+}
+
+/* HEADER */
+.passeio-header h1 {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #1f2937;
+}
+
+.passeio-header p {
+  font-size: 15px;
+  color: #6b7280;
+  margin-bottom: 32px;
+}
+
+/* FORM */
+.passeio-form {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.passeio-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.passeio-field span {
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+}
+
+/* INPUTS */
+.passeio-field input,
+.passeio-field textarea {
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  background-color: #ffffff;
+}
+
+.passeio-field textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.passeio-field input:focus,
+.passeio-field textarea:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+/* GRID */
+.passeio-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+/* FILE */
+.passeio-field input[type="file"] {
+  padding: 10px;
+  background-color: #f9fafb;
+  cursor: pointer;
+}
+
+.passeio-field small {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+/* BOTÃO */
+.passeio-actions {
+  margin-top: 10px;
+}
+
+.passeio-btn {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: #ffffff;
+  border: none;
+  padding: 14px 30px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 6px 15px rgba(37, 99, 235, 0.25);
+}
+
+.passeio-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.35);
+}
+
+.passeio-btn:active {
+  transform: translateY(0);
+}
+
+/* RESPONSIVO */
+@media (max-width: 768px) {
+  .passeio-card {
+    padding: 25px;
+  }
+
+  .passeio-grid-3 {
+    grid-template-columns: 1fr;
+  }
+
+  .passeio-btn {
+    width: 100%;
+    text-align: center;
+  }
+}
