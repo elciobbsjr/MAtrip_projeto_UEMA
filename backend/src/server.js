@@ -9,9 +9,7 @@ const app = express();
 // ==============================
 // MIDDLEWARES
 // ==============================
-app.use(cors({
-  origin: '*'
-}));
+app.use(cors({ origin: '*' }));
 app.use(express.json());
 app.use('/uploads', express.static('uploads'));
 
@@ -19,22 +17,40 @@ app.use('/uploads', express.static('uploads'));
 // MULTER (UPLOAD)
 // ==============================
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'uploads/');
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + '-' + file.originalname);
-  }
+  destination: (req, file, cb) => cb(null, 'uploads/'),
+  filename: (req, file, cb) => cb(null, Date.now() + '-' + file.originalname)
 });
-
 const upload = multer({ storage });
+
+// ==============================
+// UTIL
+// ==============================
+function normalizeJsonString(value) {
+  // Aceita: undefined/null/"" -> null
+  // Aceita string JSON -> string JSON "limpa"
+  // Aceita string comum -> vira JSON string inválida? então retorna null
+  if (value === undefined || value === null) return null;
+  const v = String(value).trim();
+  if (!v) return null;
+
+  try {
+    const parsed = JSON.parse(v);
+    return JSON.stringify(parsed);
+  } catch {
+    return null; // se não for JSON válido, melhor não quebrar o INSERT
+  }
+}
+
+function toNullIfEmpty(value) {
+  if (value === undefined || value === null) return null;
+  const v = String(value).trim();
+  return v ? v : null;
+}
 
 // ==============================
 // ROTA TESTE
 // ==============================
-app.get('/', (req, res) => {
-  res.send('Servidor rodando 🚀');
-});
+app.get('/', (req, res) => res.send('Servidor rodando 🚀'));
 
 // ==============================
 // LISTAR USUÁRIOS
@@ -89,16 +105,12 @@ app.post('/login', (req, res) => {
 
   db.query(sql, [email], async (err, results) => {
     if (err) return res.status(500).json(err);
-    if (results.length === 0) {
-      return res.status(401).json({ error: 'E-mail ou senha inválidos' });
-    }
+    if (results.length === 0) return res.status(401).json({ error: 'E-mail ou senha inválidos' });
 
     const usuario = results[0];
     const senhaOk = await bcrypt.compare(password, usuario.senha);
 
-    if (!senhaOk) {
-      return res.status(401).json({ error: 'E-mail ou senha inválidos' });
-    }
+    if (!senhaOk) return res.status(401).json({ error: 'E-mail ou senha inválidos' });
 
     res.json({
       id: usuario.id,
@@ -142,7 +154,7 @@ app.put('/admin/usuarios/:id/tipo', (req, res) => {
     WHERE id = ? AND tipo != 'admin'
   `;
 
-  db.query(sql, [tipo, id], (err, result) => {
+  db.query(sql, [tipo, id], (err) => {
     if (err) return res.status(500).json(err);
     res.json({ message: 'Tipo atualizado com sucesso' });
   });
@@ -160,17 +172,41 @@ app.post('/passeios', upload.array('imagens', 10), (req, res) => {
     valor_estudante,
     valor_crianca,
     valor_final,
-    guia_id
+    guia_id,
+
+    // NOVOS CAMPOS
+    data_passeio,
+    roteiro,
+    inclui,
+    locais_embarque,
+    horarios,
+    frequencia,
+    classificacao,
+    informacoes_importantes
   } = req.body;
 
+  // mantém seus obrigatórios atuais :contentReference[oaicite:3]{index=3}
   if (!categoria || !local || !descricao || !valor_final || !guia_id) {
     return res.status(400).json({ error: 'Dados obrigatórios não preenchidos' });
   }
 
   const sqlPasseio = `
     INSERT INTO passeios
-    (categoria, local, descricao, valor_adulto, valor_estudante, valor_crianca, valor_final, guia_id)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    (
+      categoria, local, descricao,
+      valor_adulto, valor_estudante, valor_crianca, valor_final,
+      guia_id,
+
+      data_passeio,
+      roteiro,
+      inclui,
+      locais_embarque,
+      horarios,
+      frequencia,
+      classificacao,
+      informacoes_importantes
+    )
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `;
 
   db.query(
@@ -183,13 +219,23 @@ app.post('/passeios', upload.array('imagens', 10), (req, res) => {
       valor_estudante || null,
       valor_crianca || null,
       valor_final,
-      guia_id
+      guia_id,
+
+      toNullIfEmpty(data_passeio),                 // "2025-12-28"
+      normalizeJsonString(roteiro),                // string JSON
+      normalizeJsonString(inclui),                 // string JSON
+      normalizeJsonString(locais_embarque),        // string JSON
+      normalizeJsonString(horarios),               // string JSON
+      toNullIfEmpty(frequencia),
+      toNullIfEmpty(classificacao),
+      toNullIfEmpty(informacoes_importantes)
     ],
     (err, result) => {
-      if (err) return res.status(500).json({ error: 'Erro ao cadastrar passeio' });
+      if (err) return res.status(500).json({ error: 'Erro ao cadastrar passeio', details: err });
 
       const passeioId = result.insertId;
 
+      // salva imagens (carrossel) na tabela passeio_imagens (já existente) :contentReference[oaicite:4]{index=4}
       if (req.files && req.files.length > 0) {
         const sqlImagem = `
           INSERT INTO passeio_imagens (passeio_id, caminho)
@@ -201,7 +247,7 @@ app.post('/passeios', upload.array('imagens', 10), (req, res) => {
         });
       }
 
-      res.status(201).json({ message: 'Passeio cadastrado com sucesso!' });
+      res.status(201).json({ message: 'Passeio cadastrado com sucesso!', id: passeioId });
     }
   );
 });
@@ -263,54 +309,50 @@ app.delete('/passeios/:id', (req, res) => {
   const { id } = req.params;
 
   // primeiro apaga imagens
-  db.query(
-    'DELETE FROM passeio_imagens WHERE passeio_id = ?',
-    [id],
-    (err) => {
-      if (err) return res.status(500).json({ error: 'Erro ao excluir imagens' });
+  db.query('DELETE FROM passeio_imagens WHERE passeio_id = ?', [id], (err) => {
+    if (err) return res.status(500).json({ error: 'Erro ao excluir imagens' });
 
-      // depois apaga o passeio
-      db.query(
-        'DELETE FROM passeios WHERE id = ?',
-        [id],
-        (err2, result) => {
-          if (err2) return res.status(500).json({ error: 'Erro ao excluir passeio' });
+    // depois apaga o passeio
+    db.query('DELETE FROM passeios WHERE id = ?', [id], (err2, result) => {
+      if (err2) return res.status(500).json({ error: 'Erro ao excluir passeio' });
 
-          if (result.affectedRows === 0) {
-            return res.status(404).json({ error: 'Passeio não encontrado' });
-          }
+      if (result.affectedRows === 0) {
+        return res.status(404).json({ error: 'Passeio não encontrado' });
+      }
 
-          res.json({ message: 'Passeio excluído com sucesso' });
-        }
-      );
-    }
-  );
-});
-
-// ==============================
-// BUSCAR PASSEIO POR ID
-// ==============================
-app.get('/passeios/:id', (req, res) => {
-  const { id } = req.params;
-
-  const sql = `
-    SELECT *
-    FROM passeios
-    WHERE id = ?
-  `;
-
-  db.query(sql, [id], (err, results) => {
-    if (err) return res.status(500).json({ error: 'Erro ao buscar passeio' });
-    if (results.length === 0) {
-      return res.status(404).json({ error: 'Passeio não encontrado' });
-    }
-
-    res.json(results[0]);
+      res.json({ message: 'Passeio excluído com sucesso' });
+    });
   });
 });
 
 // ==============================
-// ATUALIZAR PASSEIO
+// BUSCAR PASSEIO POR ID (COM IMAGENS + CAMPOS NOVOS)
+// ==============================
+app.get('/passeios/:id', (req, res) => {
+  const { id } = req.params;
+
+  const sqlPasseio = `SELECT * FROM passeios WHERE id = ?`;
+  const sqlImgs = `SELECT caminho FROM passeio_imagens WHERE passeio_id = ? ORDER BY id ASC`;
+
+  db.query(sqlPasseio, [id], (err, results) => {
+    if (err) return res.status(500).json({ error: 'Erro ao buscar passeio' });
+    if (results.length === 0) return res.status(404).json({ error: 'Passeio não encontrado' });
+
+    const passeio = results[0];
+
+    db.query(sqlImgs, [id], (err2, imgs) => {
+      if (err2) return res.status(500).json({ error: 'Erro ao buscar imagens do passeio' });
+
+      // devolve imagens como array de filenames (front monta /uploads/...)
+      passeio.imagens = imgs.map(x => x.caminho);
+
+      res.json(passeio);
+    });
+  });
+});
+
+// ==============================
+// ATUALIZAR PASSEIO (agora atualiza campos novos; e se enviar imagens, substitui carrossel)
 // ==============================
 app.put('/passeios/:id', upload.array('imagens', 10), (req, res) => {
   const { id } = req.params;
@@ -322,7 +364,17 @@ app.put('/passeios/:id', upload.array('imagens', 10), (req, res) => {
     valor_adulto,
     valor_estudante,
     valor_crianca,
-    valor_final
+    valor_final,
+
+    // NOVOS
+    data_passeio,
+    roteiro,
+    inclui,
+    locais_embarque,
+    horarios,
+    frequencia,
+    classificacao,
+    informacoes_importantes
   } = req.body;
 
   const sql = `
@@ -334,7 +386,16 @@ app.put('/passeios/:id', upload.array('imagens', 10), (req, res) => {
       valor_adulto = ?,
       valor_estudante = ?,
       valor_crianca = ?,
-      valor_final = ?
+      valor_final = ?,
+
+      data_passeio = ?,
+      roteiro = ?,
+      inclui = ?,
+      locais_embarque = ?,
+      horarios = ?,
+      frequencia = ?,
+      classificacao = ?,
+      informacoes_importantes = ?
     WHERE id = ?
   `;
 
@@ -348,12 +409,40 @@ app.put('/passeios/:id', upload.array('imagens', 10), (req, res) => {
       valor_estudante || null,
       valor_crianca || null,
       valor_final,
+
+      toNullIfEmpty(data_passeio),
+      normalizeJsonString(roteiro),
+      normalizeJsonString(inclui),
+      normalizeJsonString(locais_embarque),
+      normalizeJsonString(horarios),
+      toNullIfEmpty(frequencia),
+      toNullIfEmpty(classificacao),
+      toNullIfEmpty(informacoes_importantes),
+
       id
     ],
     (err) => {
-      if (err) return res.status(500).json({ error: 'Erro ao atualizar passeio' });
+      if (err) return res.status(500).json({ error: 'Erro ao atualizar passeio', details: err });
 
-      res.json({ message: 'Passeio atualizado com sucesso!' });
+      // se vierem imagens novas, substitui o carrossel
+      if (req.files && req.files.length > 0) {
+        db.query('DELETE FROM passeio_imagens WHERE passeio_id = ?', [id], (errDel) => {
+          if (errDel) return res.status(500).json({ error: 'Erro ao atualizar imagens (delete)' });
+
+          const sqlImagem = `
+            INSERT INTO passeio_imagens (passeio_id, caminho)
+            VALUES (?, ?)
+          `;
+
+          req.files.forEach(file => {
+            db.query(sqlImagem, [id, file.filename]);
+          });
+
+          return res.json({ message: 'Passeio atualizado com sucesso (com imagens)!' });
+        });
+      } else {
+        res.json({ message: 'Passeio atualizado com sucesso!' });
+      }
     }
   );
 });
@@ -380,11 +469,7 @@ app.get('/home/passeios', (req, res) => {
   `;
 
   db.query(sql, (err, results) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).json({ error: 'Erro ao carregar home' });
-    }
-
+    if (err) return res.status(500).json({ error: 'Erro ao carregar home' });
     res.json(results);
   });
 });
@@ -393,13 +478,10 @@ app.get('/home/passeios', (req, res) => {
 // LISTAR CATEGORIAS
 // ==============================
 app.get('/categorias', (req, res) => {
-  db.query(
-    'SELECT id, nome FROM categorias ORDER BY nome',
-    (err, results) => {
-      if (err) return res.status(500).json(err);
-      res.json(results);
-    }
-  );
+  db.query('SELECT id, nome FROM categorias ORDER BY nome', (err, results) => {
+    if (err) return res.status(500).json(err);
+    res.json(results);
+  });
 });
 
 // ==============================
@@ -417,9 +499,7 @@ app.post('/categorias', (req, res) => {
     [nome.toLowerCase()],
     (err) => {
       if (err) {
-        if (err.code === 'ER_DUP_ENTRY') {
-          return res.status(409).json({ error: 'Categoria já existe' });
-        }
+        if (err.code === 'ER_DUP_ENTRY') return res.status(409).json({ error: 'Categoria já existe' });
         return res.status(500).json(err);
       }
 
@@ -428,28 +508,5 @@ app.post('/categorias', (req, res) => {
   );
 });
 
-// BUSCAR PASSEIO POR ID
-app.get('/passeios/:id', (req, res) => {
-  const { id } = req.params;
-
-  const sql = `
-    SELECT *
-    FROM passeios
-    WHERE id = ?
-  `;
-
-  db.query(sql, [id], (err, results) => {
-    if (err) return res.status(500).json(err);
-    if (results.length === 0) {
-      return res.status(404).json({ error: 'Passeio não encontrado' });
-    }
-    res.json(results[0]);
-  });
-});
-
-
-// ==============================
 const PORT = 3000;
-app.listen(PORT, () => {
-  console.log(`Servidor rodando na porta ${PORT}`);
-});
+app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
