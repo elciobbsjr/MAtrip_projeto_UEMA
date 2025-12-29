@@ -188,6 +188,11 @@ app.post('/passeios', upload.array('imagens', 10), (req, res) => {
   const {
     categoria,
     local,
+
+    // ✅ NOVO
+    cidade,
+    estado,
+
     descricao,
     valor_adulto,
     valor_estudante,
@@ -195,30 +200,34 @@ app.post('/passeios', upload.array('imagens', 10), (req, res) => {
     valor_final,
     guia_id,
 
-    // (se você já adicionou essas colunas no MySQL, elas já entram aqui)
+    // colunas extras
     data_passeio,
     roteiro,
     inclui,
     locais_embarque,
+    horarios,
     frequencia,
     classificacao,
     informacoes_importantes
   } = req.body;
 
-  if (!categoria || !local || !descricao || !valor_final || !guia_id) {
+  // ✅ se cidade/estado forem obrigatórios:
+  if (!categoria || !local || !cidade || !estado || !descricao || !valor_final || !guia_id) {
     return res.status(400).json({ error: 'Dados obrigatórios não preenchidos' });
   }
+
+  const uf = String(estado || '').trim().toUpperCase();
 
   const sqlPasseio = `
     INSERT INTO passeios
     (
-      categoria, local, descricao,
+      categoria, local, cidade, estado, descricao,
       valor_adulto, valor_estudante, valor_crianca, valor_final,
       guia_id,
-      data_passeio, roteiro, inclui, locais_embarque, frequencia,
+      data_passeio, roteiro, inclui, locais_embarque, horarios, frequencia,
       classificacao, informacoes_importantes
     )
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `;
 
   db.query(
@@ -226,6 +235,8 @@ app.post('/passeios', upload.array('imagens', 10), (req, res) => {
     [
       categoria,
       local,
+      cidade,
+      uf,
       descricao,
       valor_adulto || null,
       valor_estudante || null,
@@ -237,6 +248,7 @@ app.post('/passeios', upload.array('imagens', 10), (req, res) => {
       roteiro || null,
       inclui || null,
       locais_embarque || null,
+      horarios || null,
       frequencia || null,
       classificacao || null,
       informacoes_importantes || null
@@ -274,6 +286,8 @@ app.get('/passeios', (req, res) => {
       p.id,
       p.categoria,
       p.local,
+      p.cidade,
+      p.estado,
       p.descricao,
       p.valor_final,
       MIN(i.caminho) AS imagem
@@ -299,6 +313,8 @@ app.get('/guias/:guiaId/passeios', (req, res) => {
     SELECT 
       p.id,
       p.local,
+      p.cidade,
+      p.estado,
       p.descricao,
       p.valor_final,
       MIN(i.caminho) AS imagem
@@ -360,7 +376,7 @@ app.get('/passeios/:id', (req, res) => {
 });
 
 // ==============================
-// ✅ NOVA ROTA: DETALHES DO PASSEIO + TODAS AS IMAGENS
+// ✅ DETALHES DO PASSEIO + TODAS AS IMAGENS
 // ==============================
 app.get('/passeios/:id/detalhes', (req, res) => {
   const { id } = req.params;
@@ -396,7 +412,7 @@ app.get('/passeios/:id/detalhes', (req, res) => {
           return res.status(500).json({ error: 'Erro ao buscar imagens do passeio' });
         }
 
-        passeio.imagens = imgs.map(i => i.caminho); // ["img1.jpg", "img2.jpg"...]
+        passeio.imagens = imgs.map(i => i.caminho);
         res.json(passeio);
       }
     );
@@ -412,6 +428,11 @@ app.put('/passeios/:id', upload.array('imagens', 10), (req, res) => {
   const {
     categoria,
     local,
+
+    // ✅ NOVO
+    cidade,
+    estado,
+
     descricao,
     valor_adulto,
     valor_estudante,
@@ -422,16 +443,26 @@ app.put('/passeios/:id', upload.array('imagens', 10), (req, res) => {
     roteiro,
     inclui,
     locais_embarque,
+    horarios,
     frequencia,
     classificacao,
     informacoes_importantes
   } = req.body;
+
+  // se quiser validar no update também (recomendado se no form é obrigatório)
+  if (!categoria || !local || !cidade || !estado || !descricao || !valor_final) {
+    return res.status(400).json({ error: 'Dados obrigatórios não preenchidos' });
+  }
+
+  const uf = String(estado || '').trim().toUpperCase();
 
   const sql = `
     UPDATE passeios
     SET
       categoria = ?,
       local = ?,
+      cidade = ?,
+      estado = ?,
       descricao = ?,
       valor_adulto = ?,
       valor_estudante = ?,
@@ -441,6 +472,7 @@ app.put('/passeios/:id', upload.array('imagens', 10), (req, res) => {
       roteiro = ?,
       inclui = ?,
       locais_embarque = ?,
+      horarios = ?,
       frequencia = ?,
       classificacao = ?,
       informacoes_importantes = ?
@@ -452,6 +484,8 @@ app.put('/passeios/:id', upload.array('imagens', 10), (req, res) => {
     [
       categoria,
       local,
+      cidade,
+      uf,
       descricao,
       valor_adulto || null,
       valor_estudante || null,
@@ -462,6 +496,7 @@ app.put('/passeios/:id', upload.array('imagens', 10), (req, res) => {
       roteiro || null,
       inclui || null,
       locais_embarque || null,
+      horarios || null,
       frequencia || null,
       classificacao || null,
       informacoes_importantes || null,
@@ -503,6 +538,8 @@ app.get('/home/passeios', (req, res) => {
       p.id,
       p.categoria,
       p.local,
+      p.cidade,
+      p.estado,
       p.descricao,
       p.valor_adulto,
       p.valor_estudante,

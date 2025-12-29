@@ -7,6 +7,38 @@ html, body {
 }
 
 /* ===============================
+   TOKENS (1x só)
+================================ */
+:root{
+  --brand: #003543;
+  --brand-2: #002a34;
+
+  --text: #0f172a;
+  --muted: #6b7280;
+
+  --field-bg: #f8fafc;
+  --field-bg-focus: #ffffff;
+
+  --border: rgba(15, 23, 42, 0.14);
+  --border-hover: rgba(15, 23, 42, 0.22);
+
+  --shadow-card: 0 12px 30px rgba(2, 8, 23, 0.08);
+  --shadow-soft: 0 1px 2px rgba(2, 8, 23, 0.06);
+  --shadow-hover: 0 8px 22px rgba(2, 8, 23, 0.10);
+
+  --ring: 0 0 0 3px rgba(0, 53, 67, 0.18);
+}
+
+/* ===============================
+   BASE
+================================ */
+body{
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ===============================
    PÁGINA
 ================================ */
 .passeio-page {
@@ -24,7 +56,19 @@ html, body {
   background: #ffffff;
   border-radius: 12px;
   padding: 40px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+  box-shadow: var(--shadow-card);
+  border: 1px solid rgba(15, 23, 42, 0.06);
+  position: relative;
+  overflow: hidden;
+}
+
+/* faixa superior (visual) */
+.passeio-card::before{
+  content:"";
+  position:absolute;
+  top:0; left:0; right:0;
+  height:6px;
+  background: linear-gradient(90deg, var(--brand), rgba(0, 53, 67, 0.55));
 }
 
 /* ===============================
@@ -33,11 +77,12 @@ html, body {
 .passeio-header h1 {
   font-size: 28px;
   margin-bottom: 6px;
-  color: #1f2937;
+  color: #0b1220;
+  letter-spacing: -0.02em;
 }
 
 .passeio-header p {
-  color: #6b7280;
+  color: var(--muted);
   margin-bottom: 30px;
 }
 
@@ -58,12 +103,19 @@ html, body {
 
 .passeio-field label {
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
+  color: rgba(15, 23, 42, 0.88);
 }
 
 .passeio-field label small {
   font-weight: 400;
-  color: #6b7280;
+  color: var(--muted);
+}
+
+/* texto auxiliar */
+.passeio-field small {
+  font-size: 12px;
+  color: var(--muted);
 }
 
 /* ===============================
@@ -73,27 +125,51 @@ html, body {
 .passeio-field textarea,
 .passeio-field select {
   padding: 12px 14px;
-  border-radius: 8px;
-  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  border: 1px solid var(--border);
   font-size: 14px;
-  background: #fff;
+  background: var(--field-bg);
+  color: rgba(15, 23, 42, 0.92);
+  box-shadow: var(--shadow-soft);
+  transition: border-color .18s ease, box-shadow .18s ease, background .18s ease;
+}
+
+.passeio-field input::placeholder,
+.passeio-field textarea::placeholder{
+  color: rgba(107, 114, 128, 0.82);
 }
 
 .passeio-field textarea {
   resize: vertical;
   min-height: 100px;
+  line-height: 1.35;
+}
+
+.passeio-field input:hover,
+.passeio-field textarea:hover,
+.passeio-field select:hover{
+  border-color: var(--border-hover);
+  box-shadow: 0 3px 10px rgba(2, 8, 23, 0.08);
 }
 
 .passeio-field input:focus,
 .passeio-field textarea:focus,
 .passeio-field select:focus {
   outline: none;
-  border-color: #2563eb;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+  background: var(--field-bg-focus);
+  border-color: rgba(0, 53, 67, 0.45);
+  box-shadow: var(--ring);
+}
+
+/* file input com dashed (somente visual) */
+.passeio-field input[type="file"]{
+  background: #ffffff;
+  border-style: dashed;
+  border-color: rgba(15, 23, 42, 0.18);
 }
 
 /* ===============================
-   GRID DE VALORES
+   GRID DE VALORES / GRIDS GERAIS
 ================================ */
 .passeio-grid {
   display: grid;
@@ -102,71 +178,89 @@ html, body {
 }
 
 /* ===============================
-   UPLOAD / PREVIEW
-================================ */
-.passeio-field small {
-  font-size: 12px;
-  color: #6b7280;
-}
-
-.passeio-preview {
-  display: flex;
-  gap: 10px;
-  margin-top: 10px;
-  flex-wrap: wrap;
-}
-
-.passeio-preview img {
-  width: 90px;
-  height: 70px;
-  object-fit: cover;
-  border-radius: 6px;
-  border: 1px solid #e5e7eb;
-}
-
-/* ===============================
-   BOTÃO
+   BOTÃO PRINCIPAL
 ================================ */
 .passeio-btn {
   margin-top: 10px;
   align-self: flex-start;
-  background: #2563eb;
+  background: var(--brand);
   color: #fff;
   border: none;
   padding: 14px 28px;
   font-size: 15px;
-  font-weight: 600;
-  border-radius: 10px;
+  font-weight: 700;
+  border-radius: 12px;
   cursor: pointer;
-  transition: transform .2s ease, box-shadow .2s ease;
+  transition: transform .2s ease, box-shadow .2s ease, background .18s ease;
+  box-shadow: 0 12px 26px rgba(0, 53, 67, 0.18);
 }
 
 .passeio-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 18px rgba(37,99,235,.3);
+  background: var(--brand-2);
+  box-shadow: 0 16px 34px rgba(0, 53, 67, 0.24);
 }
 
 /* ===============================
-   RESPONSIVO
+   BOTÕES (Nova categoria / Confirmar / Adicionar...)
+   (somente visual — sem mexer em layout)
 ================================ */
-@media (max-width: 768px) {
-  .passeio-grid {
-    grid-template-columns: 1fr;
-  }
+.btn-nova-categoria,
+.btn-confirmar{
+  -webkit-font-smoothing: antialiased;
+  border-radius: 12px;
+  font-weight: 700;
+  letter-spacing: .2px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: transform .14s ease, box-shadow .18s ease, background .18s ease, border-color .18s ease, color .18s ease;
+  user-select: none;
+}
 
-  .passeio-card {
-    padding: 25px;
-  }
+/* outline brand */
+.btn-nova-categoria{
+  background: rgba(0, 53, 67, 0.06);
+  border-color: rgba(0, 53, 67, 0.28);
+  color: var(--brand);
+}
 
-  .passeio-btn {
-    width: 100%;
-  }
+.btn-nova-categoria:hover{
+  background: rgba(0, 53, 67, 0.10);
+  border-color: rgba(0, 53, 67, 0.42);
+  box-shadow: 0 10px 20px rgba(0, 53, 67, 0.14);
+  transform: translateY(-1px);
+}
+
+/* confirm/add com azul suave */
+.btn-confirmar{
+  background: rgba(37, 99, 235, 0.12);
+  border-color: rgba(37, 99, 235, 0.30);
+  color: rgba(37, 99, 235, 0.98);
+}
+
+.btn-confirmar:hover{
+  background: rgba(37, 99, 235, 0.16);
+  border-color: rgba(37, 99, 235, 0.42);
+  box-shadow: 0 12px 24px rgba(37, 99, 235, 0.16);
+  transform: translateY(-1px);
+}
+
+.btn-nova-categoria:active,
+.btn-confirmar:active{
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.btn-nova-categoria:focus,
+.btn-confirmar:focus{
+  outline: none;
+  box-shadow: var(--ring);
 }
 
 /* ===============================
-   CATEGORIAS EM BALÕES (GLASS)
+   CATEGORIAS (chips “glass”)
+   (mantido caso use em outra tela)
 ================================ */
-
 .passeio-categorias {
   display: flex;
   flex-wrap: wrap;
@@ -174,12 +268,8 @@ html, body {
   margin-top: 6px;
 }
 
-/* esconde o radio */
-.categoria-chip input {
-  display: none;
-}
+.categoria-chip input { display: none; }
 
-/* visual do balão */
 .categoria-chip span {
   display: inline-flex;
   align-items: center;
@@ -199,13 +289,11 @@ html, body {
   transition: all 0.25s ease;
 }
 
-/* hover */
 .categoria-chip span:hover {
   background: rgba(255, 255, 255, 0.75);
   transform: translateY(-1px);
 }
 
-/* selecionado */
 .categoria-chip input:checked + span {
   background: rgba(37, 99, 235, 0.85);
   color: #ffffff;
@@ -213,15 +301,14 @@ html, body {
   box-shadow: 0 6px 18px rgba(37, 99, 235, 0.35);
 }
 
-/* foco acessível (teclado) */
 .categoria-chip input:focus + span {
   outline: 2px solid rgba(37, 99, 235, 0.5);
   outline-offset: 2px;
 }
-/* ===============================
-   CATEGORIAS – ESTILO PÍLULA (HOME)
-================================ */
 
+/* ===============================
+   CATEGORIAS – PÍLULA (USADO NO SEU FORM)
+================================ */
 .passeio-categorias-pill {
   display: flex;
   gap: 14px;
@@ -229,12 +316,8 @@ html, body {
   margin-top: 10px;
 }
 
-/* esconde radio */
-.categoria-pill input {
-  display: none;
-}
+.categoria-pill input { display: none; }
 
-/* pílula */
 .categoria-pill span {
   display: flex;
   align-items: center;
@@ -245,30 +328,176 @@ html, body {
 
   border-radius: 999px;
   font-size: 15px;
-  font-weight: 500;
+  font-weight: 600;
 
-  background: #f6f1ec; /* mesmo tom da home */
+  background: #f6f1ec;
   color: #1f2937;
+
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 1px 2px rgba(2, 8, 23, 0.06);
 
   cursor: pointer;
   transition: all 0.25s ease;
 }
 
-/* hover */
-.categoria-pill span:hover {
-  background: #eee6de;
-}
+.categoria-pill span:hover { background: #eee6de; }
 
-/* selecionado */
 .categoria-pill input:checked + span {
-  background: #003543; /* cor da navbar */
+  background: var(--brand);
   color: #ffffff;
   box-shadow: 0 8px 20px rgba(0, 53, 67, 0.35);
   transform: translateY(-1px);
 }
 
-/* foco teclado */
 .categoria-pill input:focus + span {
   outline: 2px solid rgba(0, 53, 67, 0.4);
   outline-offset: 3px;
+}
+
+/* ===============================
+   UPLOAD / PREVIEW (antigo)
+================================ */
+.passeio-preview {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.passeio-preview img {
+  width: 90px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+}
+
+/* ===============================
+   PREVIEW DAS NOVAS IMAGENS (1x só)
+================================ */
+.imagens-preview {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 12px;
+}
+
+.img-preview-card {
+  background: #ffffff;
+  border: 1px solid rgba(15, 23, 42, 0.10);
+  border-radius: 14px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: 0 10px 22px rgba(2, 8, 23, 0.06);
+}
+
+.img-preview-thumb {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 12px;
+  background: #f3f3f3;
+  border: 1px solid rgba(15, 23, 42, 0.06);
+}
+
+.img-preview-info small {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.img-preview-remove {
+  border: 1px solid rgba(15, 23, 42, 0.10);
+  border-radius: 12px;
+  padding: 8px 10px;
+  cursor: pointer;
+  background: rgba(15, 23, 42, 0.06);
+  color: rgba(15, 23, 42, 0.86);
+  transition: transform .14s ease, box-shadow .18s ease, background .18s ease;
+}
+
+.img-preview-remove:hover{
+  background: rgba(15, 23, 42, 0.09);
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-1px);
+}
+
+/* ===============================
+   LINHAS DE ITENS (paradas, inclui, embarque, horários)
+================================ */
+.linha-item{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  padding:10px 12px;
+  border:1px solid rgba(15, 23, 42, 0.12);
+  border-radius:14px;
+  margin-bottom:8px;
+  background: rgba(244, 246, 248, 0.72);
+  box-shadow: 0 1px 2px rgba(2, 8, 23, 0.05);
+  transition: box-shadow .18s ease, transform .16s ease, background .18s ease, border-color .18s ease;
+}
+
+.linha-item:hover{
+  box-shadow: 0 10px 20px rgba(2, 8, 23, 0.07);
+}
+
+.linha-item-texto{
+  flex:1;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.linha-item-texto small{
+  opacity:.75;
+}
+
+/* ===============================
+   IMAGENS EXISTENTES (modo edição)
+================================ */
+.imagens-existentes{
+  margin-bottom: 10px;
+}
+
+.imagens-existentes-grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap:10px;
+}
+
+.img-existente-card{
+  background: #ffffff;
+  border: 1px solid rgba(15, 23, 42, 0.10);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 10px 22px rgba(2, 8, 23, 0.05);
+}
+
+.img-existente-card img{
+  width:100%;
+  height:90px;
+  object-fit:cover;
+  display:block;
+}
+
+/* ===============================
+   RESPONSIVO
+================================ */
+@media (max-width: 768px) {
+  .passeio-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .passeio-card {
+    padding: 25px;
+  }
+
+  .passeio-btn {
+    width: 100%;
+  }
 }

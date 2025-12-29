@@ -6,6 +6,8 @@ async function carregarFlashcards() {
     const passeios = await res.json();
 
     const container = document.getElementById('flashcards-container');
+    if (!container) return;
+
     container.innerHTML = '';
 
     if (!Array.isArray(passeios) || passeios.length === 0) {
@@ -73,7 +75,9 @@ function criarCard(p) {
   const card = document.createElement('div');
   card.className = 'card';
 
-  const img = p.imagem ? `http://localhost:3000/uploads/${p.imagem}` : 'http://localhost:3000/uploads/default.jpg';
+  const img = p.imagem
+    ? `http://localhost:3000/uploads/${p.imagem}`
+    : 'http://localhost:3000/uploads/default.jpg';
 
   // Monta os preços somente se existirem
   const adulto = p.valor_adulto ? `
@@ -115,10 +119,9 @@ function criarCard(p) {
     </div>
   `;
 
-  // (opcional) clique em comprar -> por enquanto só loga
+  // ✅ Clique em comprar -> vai para a tela de detalhes com o id
   card.querySelector('.btn-comprar')?.addEventListener('click', () => {
-    console.log('Comprar passeio ID:', p.id);
-    // depois a gente liga no carrinho/detalhes
+    window.location.href = `/paginas/detalhes.html?id=${p.id}`;
   });
 
   return card;
