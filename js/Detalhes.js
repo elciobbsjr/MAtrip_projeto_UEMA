@@ -302,18 +302,35 @@ function renderRoteiro(roteiro) {
 // COMPRAR (exemplo)
 // ===========================
 function comprarPasseio(p, id) {
-  const carrinho = JSON.parse(localStorage.getItem('carrinho') || '[]');
+  const CART_KEY = "matrip_cart";
 
-  carrinho.push({
-    id,
-    local: p.local || 'Passeio',
-    valor_final: Number(p.valor_final || 0),
+  const cart = JSON.parse(localStorage.getItem(CART_KEY) || "[]");
+  const existing = cart.find(it => String(it.id) === String(id));
+
+  const primeiraImagemNome = Array.isArray(p.imagens) && p.imagens.length ? p.imagens[0] : null;
+
+  const item = {
+    id: String(id),
+    titulo: p.local || "Passeio",
+    subtitulo: p.categoria ? `Categoria: ${capitalizar(p.categoria)}` : "",
+    preco: Number(p.valor_final || 0),
+    imagem: primeiraImagemNome
+      ? `${API_URL}/uploads/${encodeURIComponent(primeiraImagemNome)}`
+      : "/img/placeholder.jpg",
+    detalhesUrl: `/paginas/Detalhes.html?id=${encodeURIComponent(id)}`,
     quantidade: 1
-  });
+  };
 
-  localStorage.setItem('carrinho', JSON.stringify(carrinho));
-  window.location.href = '/carrinho.html';
+  if (existing) {
+    existing.quantidade = Number(existing.quantidade || 1) + 1;
+  } else {
+    cart.push(item);
+  }
+
+  localStorage.setItem(CART_KEY, JSON.stringify(cart));
+  window.location.href = "/paginas/carrinho.html";
 }
+
 
 // ===========================
 // HELPERS
