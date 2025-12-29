@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Matrip — Cadastrar Passeio</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/css/navbar.css">
+  <link rel="stylesheet" href="/css/passeio.css">
+</head>
+<body>
+
+  <!-- ================= NAVBAR ================= -->
+  <header>
+    <div class="container">
+      <a href="/index.html" class="logo">
+        <img src="/logo-matrip-oficial-01.png" alt="Logo Matrip">
+        <span class="slogan">Seu guia de experiências turísticas</span>
+      </a>
+
+      <div class="actions">
+        <button class="lang">
+          <img src="/img/br.svg" alt="Português">
+        </button>
+
+        <span class="sep"></span>
+
+        <a href="#" class="account">
+          <span>Minha Conta</span>
+        </a>
+
+        <a href="/paginas/carrinho.html" class="cart"></a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= CONTEÚDO ================= -->
+  <main class="passeio-page">
+    <div class="passeio-wrapper">
+      <div class="passeio-card">
+
+        <div class="passeio-header">
+          <h1>Cadastrar Novo Passeio</h1>
+          <p>Preencha as informações básicas do passeio turístico.</p>
+        </div>
+
+        <!-- FORMULÁRIO -->
+        <form 
+          class="passeio-form" 
+          id="passeioForm"
+          enctype="multipart/form-data"
+        >
+
+          <!-- CATEGORIA -->
+          <!-- CATEGORIA -->
+          <div class="passeio-field">
+            <label>Categoria</label>
+
+            <div id="categoriasContainer" class="passeio-categorias-pill">
+              <!-- categorias dinâmicas -->
+            </div>
+
+            <button
+              type="button"
+              class="btn-nova-categoria"
+              id="btnNovaCategoria">
+              + Nova categoria
+            </button>
+          </div>
+
+          <!-- FORM NOVA CATEGORIA -->
+          <div class="passeio-field" id="novaCategoriaForm" style="display:none;">
+            <label>Nova categoria</label>
+            <input
+              type="text"
+              id="novaCategoriaInput"
+              placeholder="Ex: Ecoturismo"
+            >
+            <button
+              type="button"
+              class="btn-confirmar"
+              id="salvarCategoria">
+              Salvar categoria
+            </button>
+          </div>
+
+
+          <!-- FORM NOVA CATEGORIA -->
+          <div class="passeio-field" id="novaCategoriaForm" style="display:none;">
+            <label>Nova categoria</label>
+            <input
+              type="text"
+              id="novaCategoriaInput"
+              placeholder="Ex: Ecoturismo"
+            >
+            <button
+              type="button"
+              class="btn-confirmar"
+              id="salvarCategoria">
+              Salvar categoria
+            </button>
+          </div>
+
+          <!-- LOCAL -->
+          <div class="passeio-field">
+            <label>Local do passeio</label>
+            <input 
+              type="text" 
+              name="local"
+              placeholder="Ex: Centro Histórico" 
+              required
+            >
+          </div>
+
+          <!-- DESCRIÇÃO -->
+          <div class="passeio-field">
+            <label>Descrição breve</label>
+            <textarea 
+              name="descricao"
+              placeholder="Descreva o passeio" 
+              required
+            ></textarea>
+          </div>
+
+          <!-- VALORES -->
+          <div class="passeio-grid">
+            <div class="passeio-field">
+              <label>Valor Adulto (R$)</label>
+              <input type="number" name="valor_adulto" step="0.01">
+            </div>
+
+            <div class="passeio-field">
+              <label>Valor Estudante (R$)</label>
+              <input type="number" name="valor_estudante" step="0.01">
+            </div>
+
+            <div class="passeio-field">
+              <label>Valor Criança (R$)</label>
+              <input type="number" name="valor_crianca" step="0.01">
+            </div>
+          </div>
+
+          <!-- VALOR FINAL -->
+          <div class="passeio-field">
+            <label>Valor final do passeio (R$)</label>
+            <input 
+              type="number" 
+              name="valor_final"
+              step="0.01" 
+              required
+            >
+          </div>
+
+          <!-- IMAGENS -->
+          <div class="passeio-field">
+            <label>Imagens do passeio</label>
+            <input 
+              type="file" 
+              name="imagens"
+              multiple 
+              accept="image/*"
+            >
+            <small>Você pode selecionar várias imagens</small>
+          </div>
+
+          <button type="submit" class="passeio-btn">
+            Salvar Passeio
+          </button>
+
+        </form>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- JS -->
+  <script src="/js/passeio-form.js"></script>
+
+
+</body>
+</html>

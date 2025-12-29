@@ -82,34 +82,45 @@
     </section>
 
     <!-- ================= GUIA ================= -->
-    <!-- ================= GUIA ================= -->
     <section id="guia-area" class="dashboard-section">
       <h2>Painel do Guia Turístico</h2>
 
-      <div class="card-grid">
+      <!-- LAYOUT EM DUAS COLUNAS -->
+      <div class="guia-layout">
 
-        <!-- 👉 NOVO CARD: CADASTRAR PASSEIO -->
-        <div class="card card-action"
+        <!-- COLUNA ESQUERDA: PASSEIOS -->
+        <div class="guia-col-esquerda">
+          <h3>Meus Passeios</h3>
+
+          <div id="listaPasseiosGuia" class="passeios-grid">
+            <!-- cards dos passeios entram aqui -->
+          </div>
+        </div>
+
+        <!-- COLUNA DIREITA: AÇÕES FIXAS -->
+        <div class="guia-col-direita">
+
+          <div class="card card-action"
             onclick="window.location.href='/paginas/guia/passeios/novo.html'">
-          <h3>Cadastrar passeio</h3>
-          <p>Criar novo passeio turístico</p>
-        </div>
+            <h3>Cadastrar passeio</h3>
+            <p>Criar novo passeio turístico</p>
+          </div>
 
-        <div class="card">
-          <h3>Meus roteiros</h3>
-        </div>
+          <div class="card">
+            <h3>Meus roteiros</h3>
+          </div>
 
-        <div class="card">
-          <h3>Agenda</h3>
-        </div>
+          <div class="card">
+            <h3>Agenda</h3>
+          </div>
 
-        <div class="card">
-          <h3>Clientes</h3>
-        </div>
+          <div class="card">
+            <h3>Clientes</h3>
+          </div>
 
+        </div>
       </div>
     </section>
-
 
   </main>
 

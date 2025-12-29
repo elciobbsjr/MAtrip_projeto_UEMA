@@ -46,9 +46,11 @@ document.addEventListener('DOMContentLoaded', () => {
     roleText.textContent = 'Perfil: Usuário';
     userArea.style.display = 'block';
   } else if (tipoUsuario === 'guia') {
-    roleText.textContent = 'Perfil: Guia Turístico';
-    guiaArea.style.display = 'block';
-  } else {
+  roleText.textContent = 'Perfil: Guia Turístico';
+  guiaArea.style.display = 'block';
+  carregarPasseiosGuia();
+}
+ else {
     // tipo inválido
     localStorage.clear();
     window.location.href = '/paginas/login1.html';
@@ -125,3 +127,87 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 });
+
+async function carregarPasseiosGuia() {
+  const usuario = JSON.parse(localStorage.getItem('usuario'));
+  const container = document.getElementById('listaPasseiosGuia');
+
+  if (!container) return;
+
+  try {
+    const res = await fetch(
+      `http://localhost:3000/guias/${usuario.id}/passeios`
+    );
+    const passeios = await res.json();
+
+    container.innerHTML = '';
+
+    if (passeios.length === 0) {
+      container.innerHTML = '<p>Você ainda não cadastrou passeios.</p>';
+      return;
+    }
+
+    passeios.forEach(p => {
+      const card = document.createElement('div');
+      card.classList.add('passeio-card');
+
+      card.innerHTML = `
+      <div class="passeio-imagem">
+        <img src="http://localhost:3000/uploads/${p.imagem || 'default.jpg'}" alt="Passeio">
+      </div>
+
+      <div class="passeio-conteudo">
+        <h4>${p.local}</h4>
+        <p>${p.descricao}</p>
+        <span class="preco">R$ ${Number(p.valor_final).toFixed(2)}</span>
+      </div>
+
+      <div class="passeio-acoes">
+        <button class="btn-editar" data-id="${p.id}">Editar</button>
+        <button class="btn-excluir" data-id="${p.id}">Excluir</button>
+      </div>
+    `;
+
+      container.appendChild(card);
+    });
+
+    // eventos excluir
+    document.querySelectorAll('.btn-excluir').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const id = btn.dataset.id;
+
+        if (!confirm('Deseja realmente excluir este passeio?')) return;
+
+        await excluirPasseio(id);
+      });
+    });
+
+    // eventos editar (por enquanto navega)
+    document.querySelectorAll('.btn-editar').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.dataset.id;
+        window.location.href = `/paginas/guia/passeios/editar.html?id=${id}`;
+      });
+    });
+
+  } catch (err) {
+    console.error('Erro ao carregar passeios do guia', err);
+  }
+}
+
+async function excluirPasseio(id) {
+  try {
+    const res = await fetch(`http://localhost:3000/passeios/${id}`, {
+      method: 'DELETE'
+    });
+
+    const data = await res.json();
+    alert(data.message || data.error);
+
+    carregarPasseiosGuia(); // recarrega lista
+
+  } catch (err) {
+    console.error(err);
+    alert('Erro ao excluir passeio');
+  }
+}
