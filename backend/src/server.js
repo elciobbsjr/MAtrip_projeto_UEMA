@@ -562,6 +562,52 @@ app.get('/home/passeios', (req, res) => {
 });
 
 // ==============================
+// PARCEIROS - CADASTRAR (ADMIN)
+// ==============================
+app.post('/parceiros', upload.single('logo'), (req, res) => {
+  const { nome, documento } = req.body;
+
+  if (!nome || !documento) {
+    return res.status(400).json({ error: 'Nome e CPF/CNPJ são obrigatórios' });
+  }
+
+  // normaliza documento (só números)
+  const doc = String(documento).replace(/\D/g, '');
+
+  let tipo = null;
+  if (doc.length === 11) tipo = 'CPF';
+  if (doc.length === 14) tipo = 'CNPJ';
+  if (!tipo) return res.status(400).json({ error: 'CPF/CNPJ inválido' });
+
+  const logo = req.file ? req.file.filename : null;
+
+  const sql = `
+    INSERT INTO parceiros (nome, documento, tipo_documento, logo)
+    VALUES (?, ?, ?, ?)
+  `;
+
+  db.query(sql, [nome.trim(), doc, tipo, logo], (err, result) => {
+    if (err) {
+      if (err.code === 'ER_DUP_ENTRY') {
+        return res.status(409).json({ error: 'Já existe parceiro com esse CPF/CNPJ' });
+      }
+      console.error(err);
+      return res.status(500).json({ error: 'Erro ao cadastrar parceiro' });
+    }
+
+    res.status(201).json({ message: 'Parceiro cadastrado com sucesso!', id: result.insertId });
+  });
+});
+
+// (Opcional) listar parceiros
+app.get('/parceiros', (req, res) => {
+  db.query('SELECT id, nome, documento, tipo_documento, logo, created_at FROM parceiros ORDER BY id DESC', (err, results) => {
+    if (err) return res.status(500).json({ error: 'Erro ao listar parceiros' });
+    res.json(results);
+  });
+});
+
+// ==============================
 const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);

@@ -14,7 +14,17 @@ function carregarComponente(seletor, caminho) {
       elemento.innerHTML = html;
 
       // ✅ Inicializa componentes específicos após a injeção
-      if (seletor === "#carrossel-container") inicializarCarrossel();
+      if (seletor === "#carrossel-container") {
+      // monta os slides via API (se existir o script)
+      if (window.initCarrosselDinamico) {
+        window.initCarrosselDinamico().then(() => {
+          inicializarCarrossel();
+        });
+      } else {
+        inicializarCarrossel();
+      }
+    }
+
       if (seletor === "#flashcards-container") ativarScrollReveal();
     })
     .catch(err => console.error(err));
@@ -240,3 +250,23 @@ if (usuario) {
 if (usuario) {
   document.querySelector('#btnMinhaConta')?.classList.add('logged');
 }
+
+/*async function carregarComponente(seletor, arquivo) {
+  const el = document.querySelector(seletor);
+  const resp = await fetch(arquivo);
+  el.innerHTML = await resp.text();
+}*/
+
+document.addEventListener("DOMContentLoaded", async () => {
+  await carregarComponente("#navbar-container", "/components/navbar.html");
+
+  // 1) injeta o carrossel
+  await carregarComponente("#carrossel-container", "/components/carrossel.html");
+
+  // 2) só depois monta ele com dados do banco
+  if (window.initCarrosselDinamico) {
+    window.initCarrosselDinamico();
+  }
+
+  await carregarComponente("#footer-container", "/components/footer.html");
+});

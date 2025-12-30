@@ -69,11 +69,12 @@ body {
   font-weight: 500;
 }
 
-/* CARDS */
+/* CARDS (ADMIN/USUÁRIO/GUIA) */
 .card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 24px;
+  align-items: start; /* evita “esticar” todos quando um cresce */
 }
 
 .card {
@@ -88,11 +89,12 @@ body {
 .card h3 {
   font-size: 1.1rem;
   margin-bottom: 8px;
+  color: #e5e7eb; /* garante legível */
 }
 
 .card p {
   font-size: 0.9rem;
-  color: #94a3b8;
+  color: #94a3b8; /* garante legível */
 }
 
 .card:hover {
@@ -258,20 +260,17 @@ body {
   align-items: flex-start;
 }
 
-/* COLUNA ESQUERDA (passeios) */
 .guia-col-esquerda {
   display: flex;
   flex-direction: column;
 }
 
-/* grid dos passeios */
 .passeios-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 20px;
 }
 
-/* COLUNA DIREITA (cards fixos) */
 .guia-col-direita {
   display: flex;
   flex-direction: column;
@@ -280,7 +279,144 @@ body {
   top: 120px;
 }
 
-/* garante que cards não cresçam */
 .guia-col-direita .card {
   height: auto;
+}
+
+/* ================= MODAL ================= */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.55);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 16px;
+}
+
+.modal-box {
+  width: min(520px, 100%);
+  background: #fff;
+  border-radius: 12px;
+  padding: 18px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.25);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.modal-header h3 {
+  margin: 0;
+  color: #0f172a;
+}
+
+.modal-close {
+  border: 0;
+  background: transparent;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.modal-form {
+  display: grid;
+  gap: 10px;
+}
+
+.modal-form label {
+  font-weight: 600;
+  font-size: 14px;
+  color: #0f172a;
+}
+
+.modal-form input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d7d7d7;
+  border-radius: 10px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.btn-secondary {
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  background: #fff;
+  cursor: pointer;
+}
+
+.btn-primary {
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 0;
+  background: #2f6fed;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* ================= PARCEIROS (LISTA EMBAIXO) ================= */
+
+.parceiros-wrapper {
+  margin-top: 20px;
+}
+
+.parceiros-wrapper h3 {
+  margin-top: 18px;
+  color: #e5e7eb;
+}
+
+/* 1 por linha (como você quer) */
+.parceiros-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 12px;
+}
+
+/* card branco do parceiro */
+.parceiro-card {
+  background: #fff;
+  border: 1px solid #e6e6e6;
+  border-radius: 12px;
+  padding: 12px;
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 12px;
+  align-items: center;
+  width: 100%;
+  max-width: 980px;
+}
+
+.parceiro-logo {
+  width: 64px;
+  height: 64px;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 1px solid #eee;
+  background: #fafafa;
+}
+
+.parceiro-info h4 {
+  margin: 0;
+  font-size: 16px;
+  color: #0f172a;
+  font-weight: 600;
+}
+
+.parceiro-info p {
+  margin: 4px 0 0;
+  color: #334155;
+  font-size: 13px;
 }

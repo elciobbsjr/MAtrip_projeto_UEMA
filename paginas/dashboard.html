@@ -37,19 +37,31 @@
           <p>Alterar tipo de conta e permissões</p>
         </div>
 
+        <!-- NOVO -->
+        <div class="card card-action" id="btnGerenciarParceiros">
+          <h3>Gerenciar parceiros</h3>
+          <p>Ver lista de parceiros cadastrados</p>
+        </div>
+
         <div class="card card-disabled">
           <h3>Gerenciar guias</h3>
           <p>Em breve</p>
         </div>
 
-        <div class="card card-disabled">
-          <h3>Relatórios do sistema</h3>
-          <p>Em breve</p>
+        <div class="card card-action" id="btnCadastrarParceiro">
+          <h3>Cadastrar parceiros</h3>
+          <p>Adicionar parceiro (nome, logo e CPF/CNPJ)</p>
         </div>
       </div>
 
+      <!-- LISTA DE PARCEIROS (COMEÇA OCULTA) -->
+      <div class="parceiros-wrapper" id="parceirosWrapper" style="display:none;">
+        <h3>Parceiros cadastrados</h3>
+        <div id="parceirosLista" class="parceiros-grid"></div>
+      </div>
+
       <!-- TABELA ADMIN -->
-      <div id="adminTableWrapper" class="admin-table-wrapper">
+      <div id="adminTableWrapper" class="admin-table-wrapper" style="display:none;">
         <table class="admin-table">
           <thead>
             <tr>
@@ -85,39 +97,22 @@
     <section id="guia-area" class="dashboard-section">
       <h2>Painel do Guia Turístico</h2>
 
-      <!-- LAYOUT EM DUAS COLUNAS -->
       <div class="guia-layout">
-
-        <!-- COLUNA ESQUERDA: PASSEIOS -->
         <div class="guia-col-esquerda">
           <h3>Meus Passeios</h3>
-
-          <div id="listaPasseiosGuia" class="passeios-grid">
-            <!-- cards dos passeios entram aqui -->
-          </div>
+          <div id="listaPasseiosGuia" class="passeios-grid"></div>
         </div>
 
-        <!-- COLUNA DIREITA: AÇÕES FIXAS -->
         <div class="guia-col-direita">
-
           <div class="card card-action"
             onclick="window.location.href='/paginas/guia/passeios/novo.html'">
             <h3>Cadastrar passeio</h3>
             <p>Criar novo passeio turístico</p>
           </div>
 
-          <div class="card">
-            <h3>Meus roteiros</h3>
-          </div>
-
-          <div class="card">
-            <h3>Agenda</h3>
-          </div>
-
-          <div class="card">
-            <h3>Clientes</h3>
-          </div>
-
+          <div class="card"><h3>Meus roteiros</h3></div>
+          <div class="card"><h3>Agenda</h3></div>
+          <div class="card"><h3>Clientes</h3></div>
         </div>
       </div>
     </section>
