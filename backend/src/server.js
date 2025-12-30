@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
 const multer = require('multer');
+const path = require('path'); // ✅ movido pra cima
 const db = require('./database');
 
 const app = express();
@@ -24,10 +25,25 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 // ==============================
-// ROTA TESTE
+// ✅ FRONT (INDEX fora do backend)
+// RAIZ DO PROJETO (um nível acima da pasta "backend")
 // ==============================
+const ROOT_DIR = path.join(__dirname, '..', '..'); // agora aponta pra raiz do projeto
+
+
+// servir pastas do FRONT
+// ⚠️ sua pasta no print é "CSS" (maiúsculo), então aqui tem que ser CSS
+app.use('/css', express.static(path.join(ROOT_DIR, 'CSS')));
+app.use('/js', express.static(path.join(ROOT_DIR, 'js')));
+app.use('/img', express.static(path.join(ROOT_DIR, 'img')));
+app.use('/paginas', express.static(path.join(ROOT_DIR, 'paginas')));
+
+// se você usa navbar.html/footer.html na raiz
+app.use(express.static(ROOT_DIR));
+
+// ✅ rota HOME (fica só essa rota "/")
 app.get('/', (req, res) => {
-  res.send('Servidor rodando 🚀');
+  res.sendFile(path.join(ROOT_DIR, 'index.html'));
 });
 
 // ==============================
@@ -189,7 +205,6 @@ app.post('/passeios', upload.array('imagens', 10), (req, res) => {
     categoria,
     local,
 
-    // ✅ NOVO
     cidade,
     estado,
 
@@ -200,7 +215,6 @@ app.post('/passeios', upload.array('imagens', 10), (req, res) => {
     valor_final,
     guia_id,
 
-    // colunas extras
     data_passeio,
     roteiro,
     inclui,
@@ -211,7 +225,6 @@ app.post('/passeios', upload.array('imagens', 10), (req, res) => {
     informacoes_importantes
   } = req.body;
 
-  // ✅ se cidade/estado forem obrigatórios:
   if (!categoria || !local || !cidade || !estado || !descricao || !valor_final || !guia_id) {
     return res.status(400).json({ error: 'Dados obrigatórios não preenchidos' });
   }
@@ -361,7 +374,7 @@ app.delete('/passeios/:id', (req, res) => {
 });
 
 // ==============================
-// BUSCAR PASSEIO POR ID (SÓ DADOS DO PASSEIO)
+// BUSCAR PASSEIO POR ID
 // ==============================
 app.get('/passeios/:id', (req, res) => {
   const { id } = req.params;
@@ -376,7 +389,7 @@ app.get('/passeios/:id', (req, res) => {
 });
 
 // ==============================
-// ✅ DETALHES DO PASSEIO + TODAS AS IMAGENS
+// DETALHES DO PASSEIO + IMAGENS
 // ==============================
 app.get('/passeios/:id/detalhes', (req, res) => {
   const { id } = req.params;
@@ -420,7 +433,7 @@ app.get('/passeios/:id/detalhes', (req, res) => {
 });
 
 // ==============================
-// ATUALIZAR PASSEIO (E SE VIER IMAGEM NOVA, ADICIONA)
+// ATUALIZAR PASSEIO
 // ==============================
 app.put('/passeios/:id', upload.array('imagens', 10), (req, res) => {
   const { id } = req.params;
@@ -428,17 +441,13 @@ app.put('/passeios/:id', upload.array('imagens', 10), (req, res) => {
   const {
     categoria,
     local,
-
-    // ✅ NOVO
     cidade,
     estado,
-
     descricao,
     valor_adulto,
     valor_estudante,
     valor_crianca,
     valor_final,
-
     data_passeio,
     roteiro,
     inclui,
@@ -449,7 +458,6 @@ app.put('/passeios/:id', upload.array('imagens', 10), (req, res) => {
     informacoes_importantes
   } = req.body;
 
-  // se quiser validar no update também (recomendado se no form é obrigatório)
   if (!categoria || !local || !cidade || !estado || !descricao || !valor_final) {
     return res.status(400).json({ error: 'Dados obrigatórios não preenchidos' });
   }
@@ -491,7 +499,6 @@ app.put('/passeios/:id', upload.array('imagens', 10), (req, res) => {
       valor_estudante || null,
       valor_crianca || null,
       valor_final,
-
       data_passeio || null,
       roteiro || null,
       inclui || null,
@@ -500,7 +507,6 @@ app.put('/passeios/:id', upload.array('imagens', 10), (req, res) => {
       frequencia || null,
       classificacao || null,
       informacoes_importantes || null,
-
       id
     ],
     (err, result) => {
@@ -513,7 +519,6 @@ app.put('/passeios/:id', upload.array('imagens', 10), (req, res) => {
         return res.status(404).json({ error: 'Passeio não encontrado' });
       }
 
-      // se mandou novas imagens no PUT, adiciona também
       if (req.files && req.files.length > 0) {
         const sqlImagem = `
           INSERT INTO passeio_imagens (passeio_id, caminho)
@@ -530,7 +535,7 @@ app.put('/passeios/:id', upload.array('imagens', 10), (req, res) => {
 });
 
 // ==============================
-// HOME - PASSEIOS AGRUPADOS POR CATEGORIA (P/ INDEX)
+// HOME - PASSEIOS (INDEX)
 // ==============================
 app.get('/home/passeios', (req, res) => {
   const sql = `
@@ -562,7 +567,7 @@ app.get('/home/passeios', (req, res) => {
 });
 
 // ==============================
-// PARCEIROS - CADASTRAR (ADMIN)
+// PARCEIROS
 // ==============================
 app.post('/parceiros', upload.single('logo'), (req, res) => {
   const { nome, documento } = req.body;
@@ -571,7 +576,6 @@ app.post('/parceiros', upload.single('logo'), (req, res) => {
     return res.status(400).json({ error: 'Nome e CPF/CNPJ são obrigatórios' });
   }
 
-  // normaliza documento (só números)
   const doc = String(documento).replace(/\D/g, '');
 
   let tipo = null;
@@ -599,7 +603,6 @@ app.post('/parceiros', upload.single('logo'), (req, res) => {
   });
 });
 
-// (Opcional) listar parceiros
 app.get('/parceiros', (req, res) => {
   db.query('SELECT id, nome, documento, tipo_documento, logo, created_at FROM parceiros ORDER BY id DESC', (err, results) => {
     if (err) return res.status(500).json({ error: 'Erro ao listar parceiros' });
@@ -607,7 +610,6 @@ app.get('/parceiros', (req, res) => {
   });
 });
 
-// lista pública (sem documento)
 app.get('/parceiros/public', (req, res) => {
   const sql = 'SELECT id, nome, logo FROM parceiros ORDER BY id DESC';
   db.query(sql, (err, results) => {
@@ -618,6 +620,6 @@ app.get('/parceiros/public', (req, res) => {
 
 // ==============================
 const PORT = 3000;
-app.listen(PORT, () => {
-  console.log(`Servidor rodando na porta ${PORT}`);
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`Servidor rodando em http://0.0.0.0:${PORT}`);
 });
