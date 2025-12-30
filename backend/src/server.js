@@ -607,6 +607,15 @@ app.get('/parceiros', (req, res) => {
   });
 });
 
+// lista pública (sem documento)
+app.get('/parceiros/public', (req, res) => {
+  const sql = 'SELECT id, nome, logo FROM parceiros ORDER BY id DESC';
+  db.query(sql, (err, results) => {
+    if (err) return res.status(500).json({ error: 'Erro ao listar parceiros' });
+    res.json(results);
+  });
+});
+
 // ==============================
 const PORT = 3000;
 app.listen(PORT, () => {
