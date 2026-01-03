@@ -39,3 +39,12 @@ form.addEventListener('submit', async (e) => {
     alert('Erro ao conectar com o servidor');
   }
 });
+
+// Login com Google
+const googleBtn = document.getElementById('googleLoginBtn');
+
+if (googleBtn) {
+  googleBtn.addEventListener('click', () => {
+    window.location.href = 'http://localhost:3000/auth/google';
+  });
+}

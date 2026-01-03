@@ -1,9 +1,12 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
 const multer = require('multer');
 const path = require('path'); // ✅ movido pra cima
 const db = require('./database');
+
+console.log(process.env.GOOGLE_CLIENT_ID);
 
 const app = express();
 
@@ -13,6 +16,11 @@ const app = express();
 app.use(cors({ origin: '*' }));
 app.use(express.json());
 app.use('/uploads', express.static('uploads'));
+
+const passport = require('./googleAuth');
+
+app.use(passport.initialize());
+
 
 // ==============================
 // MULTER (UPLOAD)
@@ -617,6 +625,25 @@ app.get('/parceiros/public', (req, res) => {
     res.json(results);
   });
 });
+
+app.get('/auth/google',
+  passport.authenticate('google', { scope: ['profile', 'email'] })
+);
+
+app.get('/auth/google/callback',
+  passport.authenticate('google', { session: false }),
+  (req, res) => {
+    // envia os mesmos dados do login normal
+    res.send(`
+      <script>
+        localStorage.setItem('usuario', '${JSON.stringify(req.user)}');
+        localStorage.setItem('tipo', '${req.user.tipo}');
+        window.location.href = '/paginas/dashboard.html';
+      </script>
+    `);
+  }
+);
+
 
 // ==============================
 const PORT = 3000;
