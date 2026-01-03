@@ -48,3 +48,12 @@ if (googleBtn) {
     window.location.href = 'http://localhost:3000/auth/google';
   });
 }
+
+const facebookBtn = document.getElementById('facebookLoginBtn');
+
+if (facebookBtn) {
+  facebookBtn.addEventListener('click', () => {
+    window.location.href = 'http://localhost:3000/auth/facebook';
+  });
+}
+

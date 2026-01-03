@@ -6,6 +6,7 @@ const multer = require('multer');
 const path = require('path'); // ✅ movido pra cima
 const db = require('./database');
 
+const facebookPassport = require('./facebookAuth');
 console.log(process.env.GOOGLE_CLIENT_ID);
 
 const app = express();
@@ -18,6 +19,8 @@ app.use(express.json());
 app.use('/uploads', express.static('uploads'));
 
 const passport = require('./googleAuth');
+
+app.use(facebookPassport.initialize());
 
 app.use(passport.initialize());
 
@@ -634,6 +637,24 @@ app.get('/auth/google/callback',
   passport.authenticate('google', { session: false }),
   (req, res) => {
     // envia os mesmos dados do login normal
+    res.send(`
+      <script>
+        localStorage.setItem('usuario', '${JSON.stringify(req.user)}');
+        localStorage.setItem('tipo', '${req.user.tipo}');
+        window.location.href = '/paginas/dashboard.html';
+      </script>
+    `);
+  }
+);
+
+// LOGIN COM FACEBOOK
+app.get('/auth/facebook',
+  facebookPassport.authenticate('facebook', { scope: ['email'] })
+);
+
+app.get('/auth/facebook/callback',
+  facebookPassport.authenticate('facebook', { session: false }),
+  (req, res) => {
     res.send(`
       <script>
         localStorage.setItem('usuario', '${JSON.stringify(req.user)}');
