@@ -636,33 +636,51 @@ app.get('/auth/google',
 app.get('/auth/google/callback',
   passport.authenticate('google', { session: false }),
   (req, res) => {
-    // envia os mesmos dados do login normal
+    const userJson = JSON.stringify(req.user).replace(/</g, "\\u003c");
+
     res.send(`
       <script>
-        localStorage.setItem('usuario', '${JSON.stringify(req.user)}');
-        localStorage.setItem('tipo', '${req.user.tipo}');
-        window.location.href = '/paginas/dashboard.html';
+        localStorage.setItem("usuario", ${JSON.stringify(userJson)});
+        localStorage.setItem("tipo", ${JSON.stringify(req.user.tipo)});
+
+        const redirect = localStorage.getItem("redirectAfterLogin");
+        if (redirect) {
+          localStorage.removeItem("redirectAfterLogin");
+          window.location.replace(redirect);
+        } else {
+          window.location.replace("/paginas/dashboard.html");
+        }
       </script>
     `);
   }
 );
 
-// LOGIN COM FACEBOOK
-app.get('/auth/facebook',
-  facebookPassport.authenticate('facebook', { scope: ['email'] })
-);
 
+// LOGIN COM FACEBOOK
 app.get('/auth/facebook/callback',
   facebookPassport.authenticate('facebook', { session: false }),
   (req, res) => {
+    const userJson = JSON.stringify(req.user).replace(/</g, "\\u003c");
+
     res.send(`
       <script>
-        localStorage.setItem('usuario', '${JSON.stringify(req.user)}');
-        localStorage.setItem('tipo', '${req.user.tipo}');
-        window.location.href = '/paginas/dashboard.html';
+        localStorage.setItem("usuario", ${JSON.stringify(userJson)});
+        localStorage.setItem("tipo", ${JSON.stringify(req.user.tipo)});
+
+        const redirect = localStorage.getItem("redirectAfterLogin");
+        if (redirect) {
+          localStorage.removeItem("redirectAfterLogin");
+          window.location.replace(redirect);
+        } else {
+          window.location.replace("/paginas/dashboard.html");
+        }
       </script>
     `);
   }
+);
+
+app.get('/auth/facebook',
+  facebookPassport.authenticate('facebook', { scope: ['email'] })
 );
 
 
