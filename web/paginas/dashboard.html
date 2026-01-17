@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Matrip — Dashboard</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="stylesheet" href="/css/navbar.css">
+  <link rel="stylesheet" href="/css/footer.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <div id="navbar-container"></div>
+
+  <main class="dashboard">
+
+    <!-- HEADER -->
+    <header class="dashboard-header">
+      <div>
+        <h1 id="welcomeText">Bem-vindo!</h1>
+        <p id="roleText"></p>
+      </div>
+
+      <button id="logoutBtn" class="btn-logout">Sair</button>
+    </header>
+
+    <!-- ================= ADMIN ================= -->
+    <section id="admin-area" class="dashboard-section">
+      <h2>Painel do Administrador</h2>
+
+      <div class="card-grid">
+        <div class="card card-action" id="btnGerenciarUsuarios">
+          <h3>Gerenciar usuários</h3>
+          <p>Alterar tipo de conta e permissões</p>
+        </div>
+
+        <!-- NOVO -->
+        <div class="card card-action" id="btnGerenciarParceiros">
+          <h3>Gerenciar Agências</h3>
+          <p>Ver lista de agências cadastradas</p>
+        </div>
+
+        <div class="card card-action" id="btnGerenciarGuias">
+          <h3>Gerenciar Guias</h3>
+          <p>Listar, editar e remover guias</p>
+        </div>
+
+
+        <div class="card card-action" id="btnCadastrarParceiro">
+          <h3>Cadastrar Agência</h3>
+          <p>Adicionar agência (nome, logo e CPF/CNPJ)</p>
+        </div>
+      </div>
+
+      <!-- LISTA DE PARCEIROS (COMEÇA OCULTA) -->
+      <div class="parceiros-wrapper" id="parceirosWrapper" style="display:none;">
+        <h3>Agências cadastrados</h3>
+        <div id="parceirosLista" class="parceiros-grid"></div>
+      </div>
+
+      <!-- TABELA ADMIN -->
+      <div id="adminTableWrapper" class="admin-table-wrapper" style="display:none;">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Email</th>
+              <th>Tipo</th>
+              <th>Ação</th>
+            </tr>
+          </thead>
+          <tbody id="admin-users"></tbody>
+        </table>
+      </div>
+
+      <!-- LISTA DE GUIAS (ADMIN) -->
+      <div id="guiasWrapper" class="admin-table-wrapper" style="display:none;">
+        <h3>Guias cadastrados</h3>
+
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Email</th>
+              <th>MEI</th>
+              <th>Celular</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="admin-guias"></tbody>
+        </table>
+      </div>
+
+
+    </section>
+
+    <!-- ================= USUÁRIO ================= -->
+    <section id="user-area" class="dashboard-section">
+      <h2>Área do Usuário</h2>
+
+      <div class="card-grid">
+        <div class="card">
+          <h3>Minhas viagens</h3>
+        </div>
+        <div class="card">
+          <h3>Perfil</h3>
+        </div>
+        <div class="card">
+          <h3>Histórico</h3>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= GUIA ================= -->
+    <section id="guia-area" class="dashboard-section">
+      <h2>Painel do Guia Turístico</h2>
+
+      <div class="guia-layout">
+        <div class="guia-col-esquerda">
+          <h3>Meus Passeios</h3>
+          <div id="listaPasseiosGuia" class="passeios-grid"></div>
+        </div>
+
+        <div class="guia-col-direita">
+          <div class="card card-action"
+            onclick="window.location.href='/paginas/guia/passeios/novo.html'">
+            <h3>Cadastrar passeio</h3>
+            <p>Criar novo passeio turístico</p>
+          </div>
+
+          <div class="card"><h3>Meus roteiros</h3></div>
+          <div class="card"><h3>Agenda</h3></div>
+          <div class="card"><h3>Clientes</h3></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- JS -->
+  <script src="../js/main.js"></script>
+  <script src="../js/dashboard.js"></script>
+</body>
+</html>

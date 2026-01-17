@@ -1,0 +1,210 @@
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #f7f9fa;
+  color: #333;
+}
+
+/* ===== Cabeçalho ===== */
+.checkout-header {
+  background: transparent;
+  color: #003543;
+  padding: 2rem 0 1rem 0;
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  border-bottom: 2px solid #e3e6e8;
+}
+
+.checkout-header i {
+  color: #00bfa6;
+  font-size: 1.6rem;
+}
+
+.checkout-header h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.checkout-header .subtitle {
+  font-size: 0.95rem;
+  color: #6c757d;
+  margin-left: 2.2rem;
+}
+
+/* ===== Cards ===== */
+.card {
+  border: none;
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.participante {
+  border-left: 4px solid #00bfa6;
+  border-radius: 12px;
+}
+
+/* ===== Imagens ===== */
+.checkout-img {
+  width: 120px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* ===== Resumo ===== */
+.summary-box {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  padding: 2rem;
+  border-top: 4px solid #00bfa6;
+  position: sticky;
+  top: 2rem;
+}
+
+/* ===== Botão ===== */
+.btn-checkout {
+  background: linear-gradient(90deg, #00bfa6, #00a78f);
+  color: #fff;
+  border: none;
+  font-weight: 600;
+  font-size: 1.05rem;
+  padding: 0.75rem;
+  border-radius: 8px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-checkout:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 14px rgba(0, 191, 166, 0.3);
+}
+
+/* ===== Mobile ===== */
+@media (max-width: 992px) {
+  .checkout-header {
+    text-align: center;
+  }
+  .checkout-header .subtitle {
+    margin-left: 0;
+  }
+}
+
+/* ====== Navbar Matrip ====== */
+.navbar {
+  background: #003543;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+  position: relative;
+  z-index: 1000;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff !important;
+  font-weight: 600;
+  font-size: 1.4rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.navbar-brand img {
+  height: 80px;
+  width: auto;
+  vertical-align: middle;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.25));
+}
+
+.navbar .secure-area {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #fff;
+  font-weight: 500;
+  font-size: 0.9rem;
+  text-transform: lowercase;
+}
+
+.navbar .secure-area i {
+  font-size: 1.1rem;
+  color: #fff;
+}
+
+.navbar .secure-area span {
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #f4c20d;
+}
+
+.navbar a,
+.navbar .secure-area {
+  transition: opacity 0.25s ease;
+}
+
+.navbar a:hover,
+.navbar .secure-area:hover {
+  opacity: 0.85;
+}
+
+/* ====== Slogan ====== */
+.navbar-brand .slogan {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: #ffffffcc;
+  text-transform: none !important;
+  letter-spacing: 0.5px;
+}
+/* ============================
+   BARRA DE PROGRESSO CHECKOUT
+============================ */
+.progress-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 25px 0;
+  background: #fff;
+  border-bottom: 2px solid #e3e6e8;
+  flex-wrap: wrap;
+}
+
+.step {
+  background: #e9f5f4;
+  border: 2px solid #00bfa6;
+  color: #003543;
+  padding: 12px 20px;
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 130px;
+  text-decoration: none;
+  transition: all .25s ease;
+}
+
+.step i {
+  font-size: 1.4rem;
+  margin-bottom: 4px;
+}
+
+.step span {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.step.done {
+  background: #00bfa6;
+  color: #fff;
+  border-color: #00bfa6;
+}
+
+.step.active {
+  background: #003543;
+  border-color: #003543;
+  color: #fff;
+  transform: scale(1.05);
+}
+
+.step:hover {
+  opacity: .85;
+}

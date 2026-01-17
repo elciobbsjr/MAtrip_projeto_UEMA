@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Matrip — Cadastrar Passeio</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/css/navbar.css">
+  <link rel="stylesheet" href="/css/passeio.css">
+</head>
+<body>
+
+  <!-- ================= NAVBAR ================= -->
+  <header>
+    <div class="container">
+      <a href="/index.html" class="logo">
+        <img src="/logo-matrip-oficial-01.png" alt="Logo Matrip">
+        <span class="slogan">Seu guia de experiências turísticas</span>
+      </a>
+
+      <div class="actions">
+        <button class="lang">
+          <img src="/img/br.svg" alt="Português">
+        </button>
+
+        <span class="sep"></span>
+
+        <a href="/paginas/dashboard.html" class="account">
+          <span>Minha Conta</span>
+        </a>
+
+        <a href="/paginas/carrinho.html" class="cart"></a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= CONTEÚDO ================= -->
+  <main class="passeio-page">
+    <div class="passeio-wrapper">
+      <div class="passeio-card">
+
+        <div class="passeio-header">
+          <h1>Cadastrar Novo Passeio</h1>
+          <p>Preencha as informações básicas do passeio turístico.</p>
+        </div>
+
+        <!-- FORMULÁRIO -->
+        <form
+          class="passeio-form"
+          id="passeioForm"
+          enctype="multipart/form-data"
+        >
+
+          <!-- CATEGORIA -->
+          <div class="passeio-field">
+            <label>Categoria</label>
+
+            <div id="categoriasContainer" class="passeio-categorias-pill">
+              <!-- categorias dinâmicas -->
+            </div>
+
+            <button
+              type="button"
+              class="btn-nova-categoria"
+              id="btnNovaCategoria">
+              + Nova categoria
+            </button>
+          </div>
+
+          <!-- FORM NOVA CATEGORIA -->
+          <div class="passeio-field" id="novaCategoriaForm" style="display:none;">
+            <label>Nova categoria</label>
+            <input
+              type="text"
+              id="novaCategoriaInput"
+              placeholder="Ex: Ecoturismo"
+            >
+            <button
+              type="button"
+              class="btn-confirmar"
+              id="salvarCategoria">
+              Salvar categoria
+            </button>
+          </div>
+
+          <!-- LOCAL -->
+          <div class="passeio-field">
+            <label>Local do passeio</label>
+            <input
+              type="text"
+              name="local"
+              placeholder="Ex: Centro Histórico"
+              required
+            >
+          </div>
+
+          <!-- CIDADE / ESTADO -->
+          <div class="passeio-grid">
+            <div class="passeio-field">
+              <label>Estado (UF)</label>
+              <select name="estado" id="estadoSelect" required>
+                <option value="">Selecione</option>
+                <option value="MA">Maranhão</option>
+                <option value="PA">Pará</option>
+                <option value="PI">Piauí</option>
+                <option value="CE">Ceará</option>
+                <!-- adicione os que quiser -->
+              </select>
+            </div>
+
+            <div class="passeio-field">
+              <label>Cidade</label>
+              <select name="cidade" id="cidadeSelect" required>
+                <option value="">Selecione o estado primeiro</option>
+              </select>
+            </div>
+          </div>
+
+
+
+
+          <!-- DATA DO PASSEIO -->
+          <div class="passeio-field">
+            <label>Data do passeio</label>
+            <input
+              type="date"
+              name="data_passeio"
+              required
+            >
+            <small>Se for recorrente, essa pode ser a próxima data.</small>
+          </div>
+
+          <!-- DESCRIÇÃO -->
+          <div class="passeio-field">
+            <label>Descrição breve</label>
+            <textarea
+              name="descricao"
+              placeholder="Descreva o passeio"
+              required
+            ></textarea>
+          </div>
+
+          <!-- ROTEIRO (SAÍDA / PARADAS / RETORNO) -->
+          <div class="passeio-field">
+            <label>Roteiro</label>
+
+            <div class="passeio-grid">
+              <div class="passeio-field">
+                <label style="font-weight:600;">Saída (local)</label>
+                <input type="text" id="roteiroSaidaLocal" placeholder="Ex: Praça Deodoro">
+              </div>
+
+              <div class="passeio-field">
+                <label style="font-weight:600;">Saída (horário)</label>
+                <input type="time" id="roteiroSaidaHora" placeholder="Ex: 08:00">
+              </div>
+
+              <div class="passeio-field">
+                <label style="font-weight:600;">Retorno (local)</label>
+                <input type="text" id="roteiroRetornoLocal" placeholder="Ex: Mesmo local / Hotel">
+              </div>
+
+              <div class="passeio-field">
+                <label style="font-weight:600;">Retorno (horário)</label>
+                <input type="time" id="roteiroRetornoHora" placeholder="Ex: 12:30">
+              </div>
+            </div>
+
+            <div class="passeio-field" style="margin-top:12px;">
+              <label style="font-weight:600;">Paradas (adicione várias)</label>
+
+              <div class="passeio-grid">
+                <div class="passeio-field">
+                  <input type="text" id="paradaLocalInput" placeholder="Ex: Museu / Praia / Mirante">
+                </div>
+                <div class="passeio-field">
+                  <input type="time" id="paradaHoraInput" placeholder="Ex: 09:30">
+                </div>
+                <div class="passeio-field">
+                  <button type="button" class="btn-confirmar" id="btnAddParada">+ Adicionar parada</button>
+                </div>
+              </div>
+
+              <div id="paradasList" style="margin-top:10px;"></div>
+            </div>
+
+            <!-- hidden: manda JSON do roteiro -->
+            <input type="hidden" name="roteiro" id="roteiroHidden">
+          </div>
+
+          <!-- O QUE INCLUI -->
+          <div class="passeio-field">
+            <label>O que inclui (transporte, guia local, água etc.)</label>
+
+            <div class="passeio-grid">
+              <div class="passeio-field">
+                <input type="text" id="incluiInput" placeholder="Ex: Transporte ida/volta">
+              </div>
+              <div class="passeio-field">
+                <button type="button" class="btn-confirmar" id="btnAddInclui">+ Adicionar</button>
+              </div>
+            </div>
+
+            <div id="incluiList" style="margin-top:10px;"></div>
+
+            <!-- hidden: manda JSON do inclui -->
+            <input type="hidden" name="inclui" id="incluiHidden">
+          </div>
+
+          <!-- LOCAIS DE EMBARQUE -->
+          <div class="passeio-field">
+            <label>Locais de embarque</label>
+
+            <div class="passeio-grid">
+              <div class="passeio-field">
+                <input type="text" id="embarqueInput" placeholder="Ex: Shopping X / Hotel Y / Praça Z">
+              </div>
+              <div class="passeio-field">
+                <button type="button" class="btn-confirmar" id="btnAddEmbarque">+ Adicionar</button>
+              </div>
+            </div>
+
+            <div id="embarqueList" style="margin-top:10px;"></div>
+
+            <!-- hidden: manda JSON do embarque -->
+            <input type="hidden" name="locais_embarque" id="embarqueHidden">
+          </div>
+
+          <!-- FREQUÊNCIA / HORÁRIOS -->
+          <div class="passeio-field">
+            <label>Frequência do passeio</label>
+            <select name="frequencia" required>
+              <option value="">Selecione</option>
+              <option value="unico">Único</option>
+              <option value="diario">Diário</option>
+              <option value="semanal">Semanal</option>
+              <option value="quinzenal">Quinzenal</option>
+              <option value="mensal">Mensal</option>
+              <option value="sob_demanda">Sob demanda</option>
+            </select>
+
+            <div class="passeio-field" style="margin-top:12px;">
+              <label style="font-weight:600;">Horários disponíveis</label>
+
+              <div class="passeio-grid">
+                <div class="passeio-field">
+                  <input type="time" id="horarioInput">
+                </div>
+                <div class="passeio-field">
+                  <button type="button" class="btn-confirmar" id="btnAddHorario">+ Adicionar horário</button>
+                </div>
+              </div>
+
+              <div id="horariosList" style="margin-top:10px;"></div>
+
+              <!-- hidden: manda JSON dos horários -->
+              <input type="hidden" name="horarios" id="horariosHidden">
+            </div>
+          </div>
+
+          <!-- CLASSIFICAÇÃO -->
+          <div class="passeio-field">
+            <label>Classificação</label>
+            <select name="classificacao" required>
+              <option value="">Selecione</option>
+              <option value="livre">Livre</option>
+              <option value="10">10+</option>
+              <option value="12">12+</option>
+              <option value="14">14+</option>
+              <option value="16">16+</option>
+              <option value="18">18+</option>
+            </select>
+          </div>
+
+          <!-- INFORMAÇÕES IMPORTANTES -->
+          <div class="passeio-field">
+            <label>Informações importantes</label>
+            <textarea
+              name="informacoes_importantes"
+              placeholder="Ex: Levar protetor solar, documento, roupa leve, restrições..."
+              required
+            ></textarea>
+          </div>
+
+          <!-- VALORES -->
+          <div class="passeio-grid">
+            <div class="passeio-field">
+              <label>Valor Adulto (R$)</label>
+              <input type="number" name="valor_adulto" step="0.01">
+            </div>
+
+            <div class="passeio-field">
+              <label>Valor Estudante (R$)</label>
+              <input type="number" name="valor_estudante" step="0.01">
+            </div>
+
+            <div class="passeio-field">
+              <label>Valor Criança (R$)</label>
+              <input type="number" name="valor_crianca" step="0.01">
+            </div>
+          </div>
+
+          <!-- VALOR FINAL -->
+          <div class="passeio-field">
+            <label>Valor final do passeio (R$)</label>
+            <input
+              type="number"
+              name="valor_final"
+              step="0.01"
+              required
+            >
+          </div>
+
+          <!-- IMAGENS -->
+          <div class="passeio-field">
+            <label>Imagens do passeio (carrossel)</label>
+            <input
+              type="file"
+              id="imagensInput"
+              name="imagens"
+              multiple
+              accept="image/*"
+            >
+            <small>Você pode selecionar várias imagens para o carrossel</small>
+
+            <!-- PREVIEW -->
+            <div id="imagensPreview" class="imagens-preview"></div>
+          </div>
+
+          <button type="submit" class="passeio-btn">
+            Salvar Passeio
+          </button>
+
+        </form>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- JS -->
+  <script src="/js/cadastrar-passeio.js"></script>
+
+</body>
+</html>
