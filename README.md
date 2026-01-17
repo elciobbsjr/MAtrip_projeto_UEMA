@@ -42,9 +42,9 @@ Para o desenvolvimento deste projeto foi utilizada a seguinte IDE:
 
 ### Executar o Front-end (Web)
 
-1. Acesse a pasta web: cd web
+1. Acesse a pasta backend: cd backend
 
-2. Abra o arquivo principal no navegador: index.html
+2. Inicie o servidor: node src/server.js
 
 Ou utilize uma extensão como Live Server no VS Code.
 
@@ -56,13 +56,13 @@ Ou utilize uma extensão como Live Server no VS Code.
 
 2. Instale as dependências: npm install
 
-3. Inicie o servidor: npm start
+3. Inicie o servidor: node src/server.js
 
 ---
 
 ## Banco de Dados
 
-O script completo do banco de dados está disponível na pasta: /database/script.sql
+O script completo do banco de dados está disponível na pasta: /Banco_de_Dados/script.sql
 
 
 Para utilizá-lo:
@@ -76,9 +76,10 @@ Para utilizá-lo:
 ## Estrutura do Repositório
 
 - web/ – código do site  
-- app/ – código do aplicativo  
-- database/ – script do banco de dados  
-- video/ – vídeo de apresentação  
+- Aplicativo/ – código do aplicativo
+- backend/ - integração com o banco de dados
+- Banco_de_Dados/ – script do banco de dados  
+- Vídeo_da_Apresentação/ – vídeo de apresentação  
 
 ---
 
